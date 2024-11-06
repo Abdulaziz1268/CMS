@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast, Toaster } from 'sonner';
 
 
 function Login(props) {
@@ -40,25 +41,28 @@ function Login(props) {
                 const token = result.data.token
                 const email = result.data.email
                 const fname = result.data.fname
+                const role = result.data.role
                 localStorage.setItem('token', token)
                 localStorage.setItem('email', email)
                 localStorage.setItem('fname', fname)
+                localStorage.setItem('role', role)
                 props.handleIsLoged()
                 if(result.data.role === 'admin'){
                     navigate('/admin')
-                } else if (result.data.role === 'head') {
-                    navigate('/departmentPanel')
                 } else {
                     navigate('/')
-                }
+                }             
             })
-            .catch(err => console.log(err.message))
+            .catch(err => {
+                console.log(err)
+                toast.error(err.response.data.message)
+            })
     }
     
    
     return (
         <div className="apps-container">
-
+            <Toaster richColors expand={false} position='bottom-center' />
             <div className="login-container">
                 <h2>Welcome Back!</h2>
                 <form onSubmit={handleSubmit}>

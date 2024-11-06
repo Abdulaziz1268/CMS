@@ -9,7 +9,8 @@ const Home = () => {
             <div className="btn-container">
                 <button className="comp-btn" onClick={()=> navigate('/complaint')}>Report a complaint</button>
                 <button className="comp-btn" onClick={() => navigate('/complaintList')}>Complaint List</button>
-                {/* <button className="comp-btn" onClick={() => navigate('/admin')}>admin</button> */}
+                {localStorage.getItem('role') === 'admin' && <button className="comp-btn" onClick={() => navigate('/admin')}>admin</button> }
+                {localStorage.getItem('role') === 'head' && <button className="comp-btn" onClick={() => navigate('/departmentPanel')}>Department Complaints</button> }
             </div>
         </div>
     );

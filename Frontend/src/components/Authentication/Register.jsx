@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "sonner";
 import * as Yup from "yup"
 
 function Register() {
@@ -51,24 +52,25 @@ function Register() {
             .catch(error => console.log(error.message))
             console.log("success")
             navigate('/login')
-        } catch (validationErrors) {
+        } catch (err) {
             const newErrors = {};
-            validationErrors.inner.forEach((error) => {
+            err.inner.forEach((error) => {
               newErrors[error.path] = error.message;
             });
             setError(newErrors);
-            console.log(newErrors)
+            toast.error(newErrors.confirmPassword)
         }
     }
 
     return (
         <div className="apps-container">
+            <Toaster richColors expand={false} position="bottom-center" />
             <div className="register-container">
                 <form onSubmit={handleSubmit} >
                     <label htmlFor="fname">First Name</label>
-                    <input type="text" id="fname" className="inputs em-pas" required name="fname" onChange={handleChange} />
+                    <input type="text" id="fname" className="inputs em-pas" minLength={3} required name="fname" onChange={handleChange} />
                     <label htmlFor="lname">Last Name</label>
-                    <input type="text" id="lname" className="inputs em-pas" required name="lname" onChange={handleChange} />
+                    <input type="text" id="lname" className="inputs em-pas" minLength={2} required name="lname" onChange={handleChange} />
                     <label htmlFor="email">Email</label>
                     <input type="email" id="email" required placeholder="john@example.com" className="inputs em-pas" name="email" onChange={handleChange} />
                         <label htmlFor="password">Password</label>

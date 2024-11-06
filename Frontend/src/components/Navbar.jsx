@@ -12,6 +12,7 @@ const NavBar = (props) => {
         localStorage.removeItem('token')
         localStorage.removeItem('email')
         localStorage.removeItem('fname')
+        localStorage.removeItem('role')
         navigate('login')
     }
 

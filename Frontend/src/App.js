@@ -38,10 +38,10 @@ function App() {
     <div className="app-container">
       <Routes>
         {/* Department Routes */}
-        <Route path='/departmentPanel' element={<DepartmentPanel />} />
-        <Route path='/notifications' element={<Notifications />} />
-        <Route path='/depComplaints' element={<DepComplaints />} />
-        <Route path='/chat' element={<Chat />} />
+        <Route path='/departmentPanel' element={isLoged ? <DepartmentPanel /> : <Navigate replace to="/login" />} />
+        <Route path='/notifications' element={isLoged ? <Notifications /> : <Navigate replace to="/login" />} />
+        <Route path='/depComplaints' element={isLoged ? <DepComplaints /> : <Navigate replace to="/login" />} />
+        <Route path='/chat' element={isLoged ? <Chat /> : <Navigate replace to="/login" />} />
         
         {/* Authentication Routes */}
         <Route path="/login" element={<Login handleIsLoged={handleIsLoged} />} />
@@ -49,11 +49,11 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Admin Routes */}
-        <Route path="/admin" element={/*isLoged ? */<Admin /> /*: <Navigate replace to="/login" />*/}>
-          <Route index /*path="dashboard"*/ element={/*isLoged ?*/ <Dashboard /> /*: <Navigate replace to="/login" />*/} />
-          <Route path="complaints" element={isLoged ? <Complaints /> : <Navigate replace to="/login" />} />
-          <Route path="departments" element={/*isLoged ? */<Departments />/* : <Navigate replace to="/login" />*/} />
-          <Route path="users" element={/*isLoged ? */<Users />/* : <Navigate replace to="/login" />*/} />
+        <Route path="/admin" element={isLoged ? <Admin /> : <Navigate replace to="/login" />}>
+          <Route index path="" element={ <Dashboard />} />
+          <Route path="complaints" element={ <Complaints />} />
+          <Route path="departments" element={ <Departments />} />
+          <Route path="users" element={ <Users />} />
         </Route>
     
         {/* Main Routes */}

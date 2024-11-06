@@ -618,6 +618,12 @@ input::file-selector-button {
   background-color: var(--primary-color);
 }
 
+.header {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 20px;
+}
+
 /* --- department complaints --- */
 .department-complaints-container {
   padding-top: 20px;

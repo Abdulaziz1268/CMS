@@ -69,11 +69,13 @@ const Department = model('Department', departmentSchema)
 // Routes
 
 app.get('/userList', async (req, res) => {
-    const users = await User.find()
-    console.log(users)
-
-
-    res.status(200).json(users)
+    try {
+        const users = await User.find()
+        console.log(users)
+        res.status(200).json(users)
+    } catch (error) {
+        res.status(400).json(error)
+    }
 })
 
 app.get('/complaintList', async (req, res) => {
@@ -81,7 +83,7 @@ app.get('/complaintList', async (req, res) => {
         const complaints = await Complaint.find()
         res.json(complaints)
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json(error)
     }
 })
 
@@ -90,7 +92,7 @@ app.get('/unreadedcomplaintList', async (req, res) => {
         const complaints = await Complaint.find({status: 'unread'})
         res.json(complaints)
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json(error)
     }
 })
 
@@ -99,7 +101,7 @@ app.get('/departmentList', async (req, res) => {
         const departments = await Department.find()
         res.json(departments)
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json(error)
     }
 })
  
@@ -109,7 +111,7 @@ app.post('/login', async (req, res) => {
         const user = await User.findOne({email})
 
         //check if user exists
-        if( !user ) return res.status(400).json({message: 'user doesn\'t exist'})
+        if( !user ) return res.status(400).json({message: 'The user does\'t exist'})
         
         //compare the password
         const isMatch = await bcrypt.compare(password, user.password)
@@ -121,7 +123,7 @@ app.post('/login', async (req, res) => {
         const token = jwt.sign({id: user._id}, jwtSecret, {expiresIn: '1h'})
         res.json({token, email, fname: user.fname, role: user.role})
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json(error)
     }
 })
 
@@ -134,7 +136,7 @@ app.post('/users', async (req, res) => {
         if (error.code === 11000) { // Duplicate key error
           res.status(400).json({ error: 'Email already exists' });
         } else {
-          res.status(400).json({ error: error.message });
+          res.status(400).json(error);
         }
       }
 })
@@ -145,7 +147,7 @@ app.post('/complaint', async (req, res) => {
         const savedComplaint = await newComplaint.save()
         res.status(201).json(savedComplaint)
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json(error)
     }
 })
 
@@ -155,7 +157,7 @@ app.post('/department', async (req, res)=> {
         const savedDepartment = await newDepartment.save()
         res.status(201).json(savedDepartment)
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json(error)
     }
 })
 
@@ -164,7 +166,7 @@ app.post('/departments', async (req, res) => {
         const deps = await Department.insertMany(req.body)
         res.status(201).json(deps)
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json(error)
     }
 })
 
