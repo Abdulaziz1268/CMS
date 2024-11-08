@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { Server } = require('socket.io')
 const { type } = require('os')
+const multer = require('multer')
+const path = require('path')
 require('dotenv').config()
 
 const app = express()
@@ -15,6 +17,7 @@ const jwtSecret = process.env.JWT_SECRET;
 //middlewares
 app.use(express.json())
 app.use(cors())
+app.use('/uploads', express.static('uploads'))
 
 // database connection
 mongoose.connect('mongodb+srv://abdumh:AmhkbwgA@cluster0.rfkxh.mongodb.net/cms', {
@@ -51,6 +54,7 @@ const complaintSchema = new Schema({
     severity: {type: String, required: true},
     description: {type: String, required: true},
     reporter: {type: String},
+    fileUrl: {type: String},
     status: {type: String, default: 'unread'},
     createdAt: {type: Date, default: Date.now}
 })
@@ -65,6 +69,18 @@ const departmentSchema = new Schema({
 const User = model('User', userSchema)
 const Complaint = model('Complaint', complaintSchema)
 const Department = model('Department', departmentSchema)
+
+//configuring multer storage
+const storage = multer.diskStorage({
+    destination : (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+    filename : (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+})
+
+const upload = multer({ storage })
 
 // Routes
 
@@ -104,6 +120,14 @@ app.get('/departmentList', async (req, res) => {
         res.status(500).json(error)
     }
 })
+
+// app.post('/upload', upload.single('file')), (req, res) => {
+//     try {
+//         res.status(200).json({message: 'file uploaded successfully',file: req.file})
+//     } catch (error) {
+//         res.status(400).json({message: 'file upload failed', error})
+//     }
+// }
  
 app.post('/login', async (req, res) => {
     const {email, password} = req.body
@@ -128,6 +152,7 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/users', async (req, res) => {
+   
     try {
         const newUser = new User(req.body)
         const savedUser = await newUser.save()
@@ -141,9 +166,13 @@ app.post('/users', async (req, res) => {
       }
 })
 
-app.post('/complaint', async (req, res) => {
+app.post('/complaint', upload.single('file'), async (req, res) => {
+    const { department, severity, description, reporter} = req.body
+    const fileUrl = req.file ? req.file.path : null
     try {
-        const newComplaint = new Complaint(req.body)
+        const newComplaint = new Complaint({
+            department, severity, description, fileUrl, reporter
+        })
         const savedComplaint = await newComplaint.save()
         res.status(201).json(savedComplaint)
     } catch (error) {

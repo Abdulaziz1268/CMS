@@ -10,8 +10,8 @@ function Complaint() {
     department: "",
     severity: "",
     description: "",
-    file: "",
-    reporter: localStorage.getItem("email"),
+    file: null,
+    reporter: localStorage.getItem("email") || ''
   })
 
 
@@ -39,11 +39,32 @@ function Complaint() {
       }
     })
   }
+  
+  function handleFileChange (event) {
+    setFormData(prevState => {
+      return ({
+        ...prevState,
+        file : event.target.files[0]
+      })
+    })
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
+
+    const data = new FormData()
+    data.append('department', formData.department)
+    data.append('severity', formData.severity)
+    data.append('description', formData.description)
+    data.append('reporter', formData.reporter)
+    data.append('file', formData.file)
+
     axios
-      .post("http://localhost:2005/complaint", formData)
+      .post("http://localhost:2005/complaint", data, {
+        headers: {
+          'Content-Type': 'mutipart/form-data'
+        }
+      })
       .then(response => {
         console.log(response.data)
         toast.success("your complaint is successfully submited")
@@ -107,9 +128,9 @@ function Complaint() {
             type="file"
             id="file"
             className="inputs"
-            name="attachment"
-            value={formData.file}
-            onChange={handleChange}
+            name="file"
+            // value={formData.file}
+            onChange={handleFileChange}
           />
           <input
             type="submit"
