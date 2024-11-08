@@ -170,14 +170,80 @@ app.post('/departments', async (req, res) => {
     }
 })
 
-app.delete('/deleteDepartment', async (req, res) => {
+app.delete('/deleteDepartment/:id', async (req, res) => {
+    const {id} = req.params
     try {
-        const deleteDep = await Department.deleteOne(req.body)
+        const deleteDep = await Department.deleteOne({ _id: id })
         res.status(200).json(deleteDep)
     } catch (error) {
         res.status(400).json(error)
     }
 })
+
+app.delete('/deleteUser/:id', async (req, res) => {
+    const {id} = req.params
+    try {
+        const deleteUser = await User.deleteOne({ _id: id })
+        res.status(200).json(deleteUser)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+app.patch('/userList/:id', async (req, res) => {
+    const { id } = req.params; // Retrieve id from route parameters
+    const updateData = req.body; // Data to update
+
+    try {
+        const updateUser = await User.updateOne(
+            { _id: id },              // Use `_id` if `id` is the MongoDB ObjectID
+            { $set: updateData }       // Spread the update data correctly inside `$set`
+        );
+
+        if (updateUser.nModified === 0) {
+            return res.status(404).json({ error: 'User not found or no changes made' });
+        }
+
+        res.status(200).json(updateUser);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+app.patch('/updateDepartment/:id', async (req, res) => {
+    const{ id } = req.params
+    const updateData = req.body
+    try {
+        const updateDep = await Department.updateOne(
+            {_id: id},
+            {$set: updateData}
+        )
+        if(updateDep.nModified === 0){
+            res.status(404).json({error: "Department not found or no changes made"})
+        }
+        res.status(200).json(updateDep)
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
+
+app.patch('/updateUser/:id', async (req, res) => {
+    const{ id } = req.params
+    const updateData = req.body
+    try {
+        const updateUser = await User.updateOne(
+            {_id: id},
+            {$set: updateData}
+        )
+        if(updateUser.nModified === 0){
+            res.status(404).json({error: "Department not found or no changes made"})
+        }
+        res.status(200).json(updateUser)
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
+
 
 
 // chat app 

@@ -1,10 +1,11 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Toaster, toast } from 'sonner';
 
 
 
 function Complaint() {
+  const [depList, setDepList] = useState([])
   const [formData, setFormData] = useState({
     department: "",
     severity: "",
@@ -12,6 +13,19 @@ function Complaint() {
     file: "",
     reporter: localStorage.getItem("email"),
   })
+
+
+  useEffect (() => {
+    axios.get('http://localhost:2005/departmentList')
+      .then(response => {
+        setDepList(response.data)
+      })
+      .catch (error => {
+        console.log(error)
+      toast.error(error.response.data.message || 'error fetching departments')
+      })
+    
+    }, [])
 
   console.log(formData)
 
@@ -56,13 +70,10 @@ function Complaint() {
             <option value="" disabled>
               Select department
             </option>
-            <option value="software engineering">software engineering</option>
-            <option value="computer science">computer science</option>
-            <option value="information system">information system</option>
-            <option value="information technology">
-              information technology
-            </option>
             <option value="admin">Admin </option>
+            {depList.map(dep => (
+              <option key={dep._id} value={dep.name} >{dep.name}</option>
+            ))}
           </select>
           <label htmlFor="severity">severity</label>
           <select

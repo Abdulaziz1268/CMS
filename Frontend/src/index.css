@@ -417,6 +417,11 @@ input::file-selector-button {
 .table-row-data {
   text-indent: 15%;
   overflow: hidden;
+ 
+}
+
+.td-last {
+  padding-right: 100px;
 }
 
 .r-border {
@@ -462,6 +467,16 @@ input::file-selector-button {
   right: 50px;
 }
 
+.update-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  right: 50px;
+}
+
 .dep-btn {
   border: none;
   padding: 5px 15px;
@@ -474,6 +489,17 @@ input::file-selector-button {
 .add-btn {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.add-btn-div {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.dep-one, .dep-two {
+  flex: 1;
 }
 
 .dep-btn:hover {
@@ -495,12 +521,22 @@ input::file-selector-button {
   z-index: 2;
 }
 
-.dep-inputs {
+/* .dep-inputs {
   margin: 5px 0 20px 0;
   height: 40px;
   border-radius: 10px;
   border: 1px solid lightgrey;
+} */
+
+.table-inputs {
+  width: 80%;
+  margin: auto 0px;
 }
+/*
+.edit-form {
+  display: flex;
+  width: 800px;
+} */
 
 /* --- Admin Nav Bar --- */
 .admin-nav-container {

@@ -28,7 +28,7 @@ function App() {
     if (token) {
       setIsLoged(true);
     }
-  }, [isLoged]);
+  }, []);
 
   const handleIsLoged = () => {
     setIsLoged(prevState => !prevState)

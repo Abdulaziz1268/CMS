@@ -5,54 +5,25 @@ import deleteWhite from '../../images/delete-white.png'
 import deleteDark from '../../images/delete-dark.png'
 import editWhite from '../../images/edit-white.png'
 import editDark from '../../images/edit-dark.png'
+import saveDark from '../../images/save-dark.png'
+import saveWhite from '../../images/save-white.png'
+import cancelWhite from '../../images/cancel-white.png'
+import cancelDark from '../../images/cancel-dark.png'
 
 const Departments = () => {
     const [data, setData] = useState([])
-    const [render, setRender] = useState(true) //just to rerender whenever a document is deleted from the database
-    const [isOpen1, setIsOpen1] = useState(false)
-    const [isOpen2, setIsOpen2] = useState(false)
+    const [newData, setNewData] = useState([])
+    const [isOpen, setIsOpen] = useState(false)
     const [formData, setFormData] = useState({
         name:'',
         head: '',
         members: ''
     })
-    console.log(formData)
-    useEffect(()=>{
-        axios.get('http://localhost:2005/departmentList')
-            .then(result => {
-                setData(result.data)
-            })
-            .catch(err => console.log(err))
-    }, [])
 
-    const togglePopup = async(id, num) => {
-        num === 1 ? setIsOpen1(prevState => !prevState) : setIsOpen2(prevState => !prevState)
+    const togglePopup = async() => {
+        setIsOpen(prevState => !prevState)
+        setFormData({})
     }
-
-    const handleEdit = async (id, updateData) => {
-        try {
-            await togglePopup()
-            const result = await axios.patch(`http://localhost:2005/${id}`, updateData)
-            toast.success('Item successfully updated')
-            console.log(result)
-        } catch (error) {
-            console.log(error.message)
-            toast.error('There was an error please try again')
-        }
-    }
-
-    const handleDelete = async (id) => {
-        try {
-            const result = await axios.delete('http://localhost:2005/deleteDepartment', id)
-            console.log(result)
-            setData((prevItems) => prevItems.filter(item => item.id !== id));
-            toast.success('Department successfully deleted')
-        } catch (error) {
-            console.log(error.message)
-            toast.error('there was an error please try again')
-        }
-
-    } 
 
     const handleChange = (event) => {
         setFormData(prevData => {
@@ -63,19 +34,73 @@ const Departments = () => {
         })
     }
 
-    const handleSubmit = async (e) => {
+    const handleAddSubmit = async (e) => {
         e.preventDefault()
         try {
-            
-            const result = await axios.post('http://localhost:2005/department', formData)
-            console.log(result)
+            const newDep = await axios.post(`http://localhost:2005/department/`, formData)
+            console.log(newDep)
             togglePopup()
+            toast.success('New Department Successfully added')
+        } catch (error) {
+            console.log(error)
+            toast.error('error occured')
+        }
+    }    
+
+    const handleDelete = async (id) => {
+        try {
+            const result = await axios.delete(`http://localhost:2005/deleteDepartment/${id}`)
+            console.log(result)
+            setNewData((prevItems) => prevItems.filter(item => item._id !== id));
+            toast.success('Department successfully deleted')
         } catch (error) {
             console.log(error.message)
+            toast.error('there was an error please try again')
         }
 
+    } 
 
+
+
+  const [editDepId, setEditDepId] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    name: '',
+    head: '',
+    members: ''
+  });
+
+    useEffect(()=>{
+        axios.get('http://localhost:2005/departmentList')
+            .then(result => {
+                setData(result.data)
+            })
+            .catch(err => console.log(err))
+    }, [editDepId, newData, isOpen])
+
+    const handleFormChange = (e) => {
+        setEditFormData({
+          ...editFormData,
+          [e.target.name]: e.target.value,
+        });
     }
+
+    const handleEditClick = (department) => {
+        setEditDepId(department._id);
+        setEditFormData(department);
+      };
+
+      const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.patch(`http://localhost:2005/updateDepartment/${editDepId}`, editFormData);
+          setData(data.map(dep => (dep._id === editDepId ? response.data : dep)));
+          setEditDepId(null); // Exit edit mode
+          toast.success('successfull')
+        } catch (error) {
+          console.error('Error updating user:', error);
+          toast.error('error occured')
+        }
+      };
 
     return (
         <div className="departments-container">
@@ -95,14 +120,35 @@ const Departments = () => {
                             data.map( department => (
                             
                                 <tr key={department._id} className="table-row">
-                                    <td className="table-row-data r-border">{department._id}</td>
-                                    <td className="table-row-data r-border">{department.name}</td>
-                                    <td className="table-row-data r-border">{department.head}</td>
-                                    <td className="table-row-data">{department.members}</td>
-                                    <div className="hidden-btn">
-                                        <img src={editDark} className="row-btn" onClick={()=> togglePopup(department._id, 2)} alt="" />
-                                        <img src={deleteDark} className="row-btn" onClick={()=>handleDelete(department._id)} alt="" />
-                                    </div>
+                                    {editDepId === department._id ? (
+                                        <>
+                                            <td className="table-row-data r-border">{department._id}</td>
+                                            <td className="table-row-data r-border">
+                                                <input className="table-inputs inputs em-pas" type="text" name='name' value={editFormData.name} onChange={handleFormChange}/>
+                                            </td>
+                                            <td className="table-row-data r-border">
+                                                <input type="text" className="table-inputs inputs em-pas" name='head' value={editFormData.head} onChange={handleFormChange}/>
+                                            </td>
+                                            <td className="table-row-data td-last">
+                                            <input type="text" name='members' className="table-inputs inputs em-pas" value={editFormData.members} onChange={handleFormChange}/>
+                                            </td>
+                                            <div className="update-div">
+                                                <img src={saveDark} className="row-btn" onClick={handleFormSubmit} />
+                                                <img src={cancelDark} className="row-btn" onClick={() => setEditDepId(null)} />
+                                            </div>
+                                            </>
+                                        ) : (
+                                        <>
+                                            <td className="table-row-data r-border">{department._id}</td>
+                                            <td className="table-row-data r-border">{department.name}</td>
+                                            <td className="table-row-data r-border">{department.head}</td>
+                                            <td className="table-row-data">{department.members}</td>
+                                            <div className="hidden-btn">
+                                                <img src={editDark} className="row-btn" onClick={()=> handleEditClick(department)} alt="" />
+                                                <img src={deleteDark} className="row-btn" onClick={()=>handleDelete(department._id)} alt="" />
+                                            </div>
+                                        </>
+                                    )}
                                 </tr>         
                             
                             ))
@@ -111,29 +157,21 @@ const Departments = () => {
                         )}
                     </tbody> 
                 </table>
-                {isOpen2 && 
-                    <form onSubmit={handleEdit} className="department-form">
+                
+                <button className="dep-btn add-btn" onClick={togglePopup}>+ Add Department</button>
+                {isOpen && 
+                    <form onSubmit={handleAddSubmit} className="department-form">
                         <label htmlFor="name">Name</label>
-                        <input type="text" id="name" name="name" value={formData.name} className="dep-inputs" onChange={handleChange} />
+                        <input type="text" id="name" name="name" value={formData.name} className="inputs em-pas" required onChange={handleChange} />
                         <label htmlFor="head">Head</label>
-                        <input type="text" id="head" name="head" value={formData.head} className="dep-inputs" onChange={handleChange} />
+                        <input type="text" id="head" name="head" value={formData.head} className="inputs em-pas" required onChange={handleChange} />
                         <label htmlFor="members">Members</label>
-                        <input type="text" id="members" name="members" value={formData.members} className="dep-inputs" onChange={handleChange} />
+                        <input type="text" id="members" name="members" value={formData.members} className="inputs em-pas" required onChange={handleChange} />
                         {/* later make this a select with list of checkbexes nested inside options */}
-                        <input type="submit" name="submit" value='Submit' className="dep-inputs dep-btn" />
-                    </form>
-                }
-                <button className="dep-btn add-btn" onClick={() => togglePopup(1)}>+ Add Department</button>
-                {isOpen1 && 
-                    <form onSubmit={handleSubmit} className="department-form">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" name="name" value={formData.name} className="dep-inputs" required onChange={handleChange} />
-                        <label htmlFor="head">Head</label>
-                        <input type="text" id="head" name="head" value={formData.head} className="dep-inputs" required onChange={handleChange} />
-                        <label htmlFor="members">Members</label>
-                        <input type="text" id="members" name="members" value={formData.members} className="dep-inputs" required onChange={handleChange} />
-                        {/* later make this a select with list of checkbexes nested inside options */}
-                        <input type="submit" name="submit" value='Submit' className="dep-inputs dep-btn" />
+                        <div className="add-btn-div">
+                            <button className="dep-inputs dep-btn dep-one" onClick={togglePopup}>Cancel</button>
+                            <input type="submit" name="submit" value='Submit' className="dep-inputs dep-btn dep-two" />
+                        </div>
                     </form>
                 }
             </div>
@@ -141,5 +179,4 @@ const Departments = () => {
         </div>
     );
 }
- 
 export default Departments;
