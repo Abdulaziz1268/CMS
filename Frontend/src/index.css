@@ -690,6 +690,12 @@ input::file-selector-button {
   align-items: center;
 }
 
+.item-outer-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .notification-item {
   border-radius: 10px;
   margin-bottom: 20px;
@@ -701,7 +707,24 @@ input::file-selector-button {
 
 .notification-item:hover {
   transform: scale(1.02);
+}
+
+.arrow {
+  width: 30px;
+  height: 30px;
+  z-index: 2;
+  margin-left: 47%;
   cursor: pointer;
+  margin: 2px 47%;
+}
+
+.arrow:hover {
+  transform: scale(1.3);
+}
+
+.bottons {
+  display: flex;
+
 }
 
 .chat-btn {
@@ -711,9 +734,24 @@ input::file-selector-button {
   background-color: var(--secondary-color);
   color: var(--primary-color);
   border-radius: 25px;
+  margin-right: 20px;
 }
 
 .chat-btn:hover {
   background-color: var(--forth-color);
   cursor: pointer;
+}
+
+.solution {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+#txt {
+  width: 70%;
+}
+
+.sol {
+  max-width: 500px;
 }

@@ -18,17 +18,22 @@ const ComplaintList = () => {
 
         {/* Check if data is an array and map over it */}
         {data.length > 0 ? (
-            data.map((complaint, index) => (
-                <div key={index} className="complaint-list-item">
+            data.map((complaint, index) => {
+                if(complaint.status === 'read'){
+                    return (
+                        <div key={index} className="complaint-list-item">
                     
-                    <p>Complaint description: {complaint.description}</p>
-                    <p>Complaint severity: {complaint.severity}</p>
-                    <p>{complaint.attachment}</p>
-                    <p>To department: {complaint.department}</p>
-                    <img src="complaint.attachment" alt="" />
-                    {/* Display other complaint properties */}
-                </div>
-            ))
+                            <p><strong>Complaint description:</strong> {complaint.description}</p>
+                            <p><strong>Complaint severity:</strong> {complaint.severity}</p>
+                            <p>{complaint.file}</p>
+                            <p><strong>To department:</strong> {complaint.department}</p>
+                            <p><strong>Solution:</strong> {complaint.solution}</p>
+
+                            {/* Display other complaint properties */}
+                        </div>
+                    )
+                }
+            })
         ) : (
             <p>No complaints found.</p>
         )}

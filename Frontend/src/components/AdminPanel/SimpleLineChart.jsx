@@ -32,7 +32,7 @@ const SimpleLineChart = (props) => {
         <XAxis dataKey="createdAt" />
         <YAxis domain={[0, selected.length]} />
         {/* {console.log(props.data.createdAt)} */}
-        <Tooltip />
+        <Tooltip labelFormatter={(value) => `Date: ${new Date(value).toLocaleDateString()}`} />
         <Legend />
         <Line type="monotone" dataKey="name" activeDot={{ r: 8 }}  stroke="#000000" strokeWidth={1} />
       </LineChart>

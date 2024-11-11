@@ -24,10 +24,17 @@ function App() {
   const [isLoged, setIsLoged] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoged(true);
-    }
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   setIsLoged(true);
+    // }
+    const checkToken = () => {
+      const token = localStorage.getItem('token');
+      setIsLoged(!!token); // Set isLoged to true if token exists
+    };
+    checkToken();
+    window.addEventListener('storage', checkToken); // For multi-tab detection
+    return () => window.removeEventListener('storage', checkToken);
   }, []);
 
   const handleIsLoged = () => {
@@ -41,7 +48,7 @@ function App() {
         <Route path='/departmentPanel' element={isLoged ? <DepartmentPanel /> : <Navigate replace to="/login" />} />
         <Route path='/notifications' element={isLoged ? <Notifications /> : <Navigate replace to="/login" />} />
         <Route path='/depComplaints' element={isLoged ? <DepComplaints /> : <Navigate replace to="/login" />} />
-        <Route path='/chat' element={isLoged ? <Chat /> : <Navigate replace to="/login" />} />
+        {/* <Route path='/chat' element={isLoged ? <Chat /> : <Navigate replace to="/login" />} /> */}
         
         {/* Authentication Routes */}
         <Route path="/login" element={<Login handleIsLoged={handleIsLoged} />} />

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import bg from '../images/home-bg.png'
+import bgDark from '../images/home-bg.png'
 const Home = () => {
     const navigate = useNavigate()
     return (

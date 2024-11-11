@@ -81,7 +81,7 @@ function Login(props) {
                 </form>
                 <h4><span>or</span></h4>
                 <div className="login-options">
-                    <button className="btn button" ><img src={photo} alt="google icon" className="google-icon" /><p>Login with Gmail</p></button>
+                    {/* <button className="btn button" ><img src={photo} alt="google icon" className="google-icon" /><p>Login with Gmail</p></button> */}
                     <button className="btn create-account button" onClick={handleClick} >Create a new account</button>
                 </div>
             </div>

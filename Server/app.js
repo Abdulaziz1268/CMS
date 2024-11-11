@@ -56,7 +56,8 @@ const complaintSchema = new Schema({
     reporter: {type: String},
     fileUrl: {type: String},
     status: {type: String, default: 'unread'},
-    createdAt: {type: Date, default: Date.now}
+    createdAt: {type: Date, default: Date.now},
+    solution: {type: String, default: 'Not solved yet'}
 })
 
 const departmentSchema = new Schema({
@@ -121,13 +122,15 @@ app.get('/departmentList', async (req, res) => {
     }
 })
 
-// app.post('/upload', upload.single('file')), (req, res) => {
-//     try {
-//         res.status(200).json({message: 'file uploaded successfully',file: req.file})
-//     } catch (error) {
-//         res.status(400).json({message: 'file upload failed', error})
-//     }
-// }
+app.get('/getDepHead/:name', async (req, res) => {
+    const {name} = req.params
+    try {
+        const depHead = await Department.find({head: name})
+        res.status(200).json(depHead)
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
  
 app.post('/login', async (req, res) => {
     const {email, password} = req.body
@@ -273,29 +276,47 @@ app.patch('/updateUser/:id', async (req, res) => {
     }
 })
 
+app.put('/solution/:id', async (req, res) => {
+    const {id} = req.params
+    const {solution} = req.body
+    console.log(id, solution)
+    try {
+        const response = await Complaint.updateOne(
+            {_id: id},
+            {$set: {solution, status: 'read'}}
+        )
+        if(response.nModified === 0){
+           return res.status(404).json({error: "complaint not found or no changes made"})
+        }
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(404).json({ err: "not posting", error})
+    }
+})
+
 
 
 // chat app 
-const server = http.createServer(app)
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3001",
-    methods: ['POST']
-  }
-})
+// const server = http.createServer(app)
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3001",
+//     methods: ['POST']
+//   }
+// })
 
-io.on('connection', socket => {
-  console.log('a user connected')
+// io.on('connection', socket => {
+//   console.log('a user connected')
 
-  socket.on('chat message', msg => {
+//   socket.on('chat message', msg => {
     
 
-    socket.broadcast.emit('chat message', msg)
-  })
-  socket.on('disconnect', ()=>{
-    console.log('disconnected')
-  })
+//     socket.broadcast.emit('chat message', msg)
+//   })
+//   socket.on('disconnect', ()=>{
+//     console.log('disconnected')
+//   })
 
-})
+// })
 
 app.listen(2005, () => console.log('server listening on port 2005...'))
