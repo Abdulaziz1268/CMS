@@ -20,6 +20,7 @@ const Notifications = (props) => {
                 setMessages(response.data)
                 // console.log(response.data)
             })
+            .catch(error => console.log(error))
     }, [props.refresher])
 
     const handleSolved = (id) => {
@@ -28,6 +29,7 @@ const Notifications = (props) => {
             solution: "" 
         })
     }
+    console.log(messages)
     
     const handleClick = (id) => {
         // Toggle expansion: if the same item is clicked again, collapse it; otherwise, expand it
@@ -52,18 +54,19 @@ const Notifications = (props) => {
                 // console.log(id, textArea)
             })
     }
-    // console.log(props.department.name)
+    // console.log(props.department[0].name)
     return (
         <div className="notifications-container">
             <Toaster richColors expand={false} position="bottom-center" />
-            {messages.map(item => {
+            {messages.length > 0 ? (  messages.map(item => {
+                {console.log(item.department)}
                 if(props.department.length > 0 && item.status === 'unread' && item.department === props.department[0].name){
                     return (
-                        <div className="item-outer-container">
+                        <div className="item-outer-container" key={item._id}>
                         <div className="notification-item" key={item._id} >
                             <p><strong>Description: </strong>{item.description}</p>
                             <p><strong>Created at: </strong>{item.createdAt}</p>
-              
+                                 
                             {clickedId === item._id && (
                               <>
                                     <p><strong>Severity: </strong>{item.severity}</p>
@@ -88,8 +91,14 @@ const Notifications = (props) => {
                         </div>
                         </div>
                     )
+                } else {
+                    <p>No unread notifications</p>
                 }
-            })}
+            })
+        ):(
+            <p>No unread notifications</p>
+        )
+        }
         </div>
     );
 }

@@ -17,7 +17,7 @@ const DepComplaints = (props) => {
     // Toggle expansion: if the same item is clicked again, collapse it; otherwise, expand it
     setClickedId(clickedId === id ? null : id);
   };
-
+//  console.log(props.department[0])
   return (
     <div className="department-complaints-container">
       {data.map(item => {

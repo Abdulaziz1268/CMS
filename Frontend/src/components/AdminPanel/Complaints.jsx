@@ -18,13 +18,14 @@ const Complaints = () => {
         {data.length > 0 ? (
             data.map((complaint, index) => (
                 <div key={index} className="complaint-list-item">
-                    
-                    <p>Complaint description: {complaint.description}</p>
-                    <p>Complaint severity: {complaint.severity}</p>
+                    {complaint.status === 'read' ? <p className="resolved">Resolved</p> : <p className="unresolved">Unresolved</p> }
+                    <p><strong>Complaint description:</strong> {complaint.description}</p>
+                    <p><strong>Complaint severity:</strong> {complaint.severity}</p>
                     <p>{complaint.attachment}</p>
-                    <p>To department: {complaint.department}</p>
-                    <img src="complaint.attachment" alt="" />
-                    {/* Display other complaint properties */}
+                    <p><strong>To department:</strong> {complaint.department}</p>
+                    <p><strong>Reporter:</strong> {complaint.reporter}</p>
+                    <p><strong>posted at:</strong> {complaint.createdAt}</p>
+                    {/*late add attachment*/}
                 </div>
             ))
         ) : (

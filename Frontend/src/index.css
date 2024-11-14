@@ -443,6 +443,22 @@ input::file-selector-button {
   cursor: pointer;
   transform: scale(1.02);
 }
+
+.resolved {
+  padding: 3px;
+  color: var(--primary-color);
+  background-color: green;
+  width: 80px;
+  border-radius: 10px;
+}
+
+.unresolved {
+  padding: 3px;
+  color: var(--primary-color);
+  background-color: red;
+  width: 90px;
+  border-radius: 10px;
+}
 /* ---- departments ---- */
 .departments-container {
   width: 100%;

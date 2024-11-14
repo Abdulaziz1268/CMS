@@ -8,6 +8,7 @@ const { Server } = require('socket.io')
 const { type } = require('os')
 const multer = require('multer')
 const path = require('path')
+const fs = require('fs')
 require('dotenv').config()
 
 const app = express()
@@ -104,14 +105,49 @@ app.get('/complaintList', async (req, res) => {
     }
 })
 
+// app.get('/unreadedcomplaintList', async (req, res) => {
+//     try {
+//         const complaints = await Complaint.find({status: 'unread'})
+//         const complaintsWithFilePath = complaints.map(complaint => {
+//             const filePath = path.join(__dirname, complaint.fileUrl)
+//             if(fs.existsSync(filePath)){
+//                 return { ...complaint._doc, filePath}
+//             } else {
+//                 return { ...complaint._doc }
+//             }
+//         })
+
+//         res.json(complaintsWithFilePath)
+//     } catch (error) {
+//         res.status(500).json(error)
+//     }
+// })
+
 app.get('/unreadedcomplaintList', async (req, res) => {
     try {
-        const complaints = await Complaint.find({status: 'unread'})
-        res.json(complaints)
+        const complaints = await Complaint.find({ status: 'unread' });
+
+        const complaintsWithFilePath = complaints.map(complaint => {
+
+            if (complaint.fileUrl && typeof complaint.fileUrl === "string") {
+                // Construct the file path based on each complaint's fileUrl
+                const filePath = path.join(__dirname, complaint.fileUrl);
+
+                // Check if the file exists in the filesystem
+                if (fs.existsSync(filePath)) {
+                    return { ...complaint._doc, filePath };
+                }
+            }
+            return { ...complaint._doc };
+        });
+
+        res.status(200).json(complaintsWithFilePath);
     } catch (error) {
-        res.status(500).json(error)
+        console.error("Error retrieving complaints:", error);
+        res.status(500).json({ message: "Internal server error", error });
     }
-})
+});
+
 
 app.get('/departmentList', async (req, res) => {
     try {
@@ -131,6 +167,28 @@ app.get('/getDepHead/:name', async (req, res) => {
         res.status(404).json(error)
     }
 })
+
+// app.get('/file/:fileUrl', async (req, res) => {
+//     try {
+//         const { fileUrl } = req.params
+//         const response = await Complaint.find({ fileUrl })
+
+//         if(!file){
+//             return res.status(404).json({message: "File not found"})
+//         }
+
+//         const filePath = path.join(__dirname, response.filePath)
+
+//         if(fs.existsSync(filePath)){
+//             return res.status(404).json({ message: "File not found on server"})
+//         }
+
+//         res.status(200).json(filepath)
+
+//     } catch (error) {
+//         res.status(500).json(error)
+//     }
+// })
  
 app.post('/login', async (req, res) => {
     const {email, password} = req.body
