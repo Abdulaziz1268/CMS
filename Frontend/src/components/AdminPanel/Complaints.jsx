@@ -1,8 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+
 
 const Complaints = () => {
     const [data, setData] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get('http://localhost:2005/complaintList')
@@ -13,7 +16,7 @@ const Complaints = () => {
 
     return (
         <div className="complaint-list-container-admin">
-            
+            {/* <button className="dep-btn add-btn" onClick={() => navigate('/departmentPanel')}>View admin complaints</button> */}
         {/* Check if data is an array and map over it */}
         {data.length > 0 ? (
             data.map((complaint, index) => (

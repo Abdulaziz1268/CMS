@@ -21,34 +21,35 @@ import DepartmentPanel from './components/Departments/departmetnPanel';
 
 
 function App() {
-  const [isLoged, setIsLoged] = useState(false);
+  // Initialize isLoged based on token in localStorage
+  const [isLoged, setIsLoged] = useState(!!localStorage.getItem('token'));
 
   useEffect(() => {
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   setIsLoged(true);
-    // }
     const checkToken = () => {
       const token = localStorage.getItem('token');
-      setIsLoged(!!token); // Set isLoged to true if token exists
+      setIsLoged(!!token); // Update isLoged based on token presence
     };
+
     checkToken();
-    window.addEventListener('storage', checkToken); // For multi-tab detection
+    // Listen for changes to localStorage to detect login/logout across tabs
+    window.addEventListener('storage', checkToken);
+
+    // Clean up event listener on component unmount
     return () => window.removeEventListener('storage', checkToken);
   }, []);
 
   const handleIsLoged = () => {
-    setIsLoged(prevState => !prevState)
-  }
+    setIsLoged(prevState => !prevState);
+  };
 
   return (
     <div className="app-container">
       <Routes>
         {/* Department Routes */}
+        
         <Route path='/departmentPanel' element={isLoged ? <DepartmentPanel /> : <Navigate replace to="/login" />} />
         <Route path='/notifications' element={isLoged ? <Notifications /> : <Navigate replace to="/login" />} />
         <Route path='/depComplaints' element={isLoged ? <DepComplaints /> : <Navigate replace to="/login" />} />
-        {/* <Route path='/chat' element={isLoged ? <Chat /> : <Navigate replace to="/login" />} /> */}
         
         {/* Authentication Routes */}
         <Route path="/login" element={<Login handleIsLoged={handleIsLoged} />} />
@@ -57,19 +58,20 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin" element={isLoged ? <Admin /> : <Navigate replace to="/login" />}>
-          <Route index path="" element={ <Dashboard />} />
-          <Route path="complaints" element={ <Complaints />} />
-          <Route path="departments" element={ <Departments />} />
-          <Route path="users" element={ <Users />} />
+          <Route index path="" element={<Dashboard />} />
+          <Route path="complaints" element={<Complaints />} />
+          <Route path="departments" element={<Departments />} />
+          <Route path="users" element={<Users />} />
         </Route>
-    
+
         {/* Main Routes */}
         <Route path="/" element={<NavBar isLoged={isLoged} />}>
           <Route path="complaint" element={isLoged ? <Complaint /> : <Navigate replace to="/login" />} />
           <Route path="complaintList" element={isLoged ? <ComplaintList /> : <Navigate replace to="/login" />} />
           <Route index element={<Home />} />
         </Route>
-        {/* not Found Route */}
+        
+        {/* Not Found Route */}
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>

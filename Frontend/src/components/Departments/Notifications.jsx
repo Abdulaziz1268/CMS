@@ -29,7 +29,7 @@ const Notifications = (props) => {
             solution: "" 
         })
     }
-    console.log(messages)
+    // console.log(messages)
     
     const handleClick = (id) => {
         // Toggle expansion: if the same item is clicked again, collapse it; otherwise, expand it
@@ -59,7 +59,7 @@ const Notifications = (props) => {
         <div className="notifications-container">
             <Toaster richColors expand={false} position="bottom-center" />
             {messages.length > 0 ? (  messages.map(item => {
-                {console.log(item.department)}
+                // {console.log(item.department)}
                 if(props.department.length > 0 && item.status === 'unread' && item.department === props.department[0].name){
                     return (
                         <div className="item-outer-container" key={item._id}>
@@ -71,6 +71,10 @@ const Notifications = (props) => {
                               <>
                                     <p><strong>Severity: </strong>{item.severity}</p>
                                     <p><strong>Reporter: </strong>{item.reporter}</p>
+                                    {console.log(item.filePath)}
+                                    {item.filePath && (
+                            <p><strong>Attachment:</strong> <a href={`http://localhost:2005${item.filePath}`} target="_blank" rel="noopener noreferrer">View Attachment</a></p>
+                        )}
                                     <div className="buttons">
                                         {/* {popUp !== item._id && <button className="chat-btn" onClick={(e) => { e.stopPropagation(); }}>Chat</button>} */}
                                         {popUp !== item._id && <button className="chat-btn" onClick={() => handleSolved(item._id)} >Solution</button>}

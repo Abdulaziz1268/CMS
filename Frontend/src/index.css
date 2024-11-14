@@ -738,6 +738,11 @@ input::file-selector-button {
   transform: scale(1.3);
 }
 
+.upload-file {
+  width: 100px;
+  height: 200px;
+}
+
 .bottons {
   display: flex;
 
