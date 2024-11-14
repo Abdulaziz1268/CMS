@@ -755,3 +755,7 @@ input::file-selector-button {
 .sol {
   max-width: 500px;
 }
+
+.not-found-container {
+  margin: 30% 0 0 20%;
+}
