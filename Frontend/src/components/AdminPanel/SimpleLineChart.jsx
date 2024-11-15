@@ -34,7 +34,7 @@ const SimpleLineChart = (props) => {
         {/* {console.log(props.data.createdAt)} */}
         <Tooltip labelFormatter={(value) => `Date: ${new Date(value).toLocaleDateString()}`} />
         <Legend />
-        <Line type="monotone" dataKey="name" activeDot={{ r: 8 }}  stroke="#000000" strokeWidth={1} />
+        <Line type="monotone" dataKey="chart" activeDot={{ r: 8 }}  stroke="#000000" strokeWidth={1} />
       </LineChart>
     </ResponsiveContainer>
   );

@@ -25,6 +25,10 @@ mongoose.connect('mongodb+srv://abdumh:AmhkbwgA@cluster0.rfkxh.mongodb.net/cms',
     useNewUrlParser: true,
     useUnifiedTopology:true
 })
+// mongoose.connect('mongodb://localhost:27017/CMS', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology:true
+// })
     .then(() => console.log('connected to mongodb'))
     .catch(err => console.log('error connecting to mongodb', err))
 
