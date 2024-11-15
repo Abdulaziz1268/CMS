@@ -72,9 +72,9 @@ const Notifications = (props) => {
                                     <p><strong>Severity: </strong>{item.severity}</p>
                                     <p><strong>Reporter: </strong>{item.reporter}</p>
                                     {console.log(item.filePath)}
-                                    {item.filePath && (
-                            <p><strong>Attachment:</strong> <a href={`http://localhost:2005${item.filePath}`} target="_blank" rel="noopener noreferrer">View Attachment</a></p>
-                        )}
+                                    {/* {item.filePath && (
+                            <p><strong>Attachment:</strong> <a href={`http://localhost:2005${item.filePath}`} download target="_blank" rel="noopener noreferrer">View Attachment</a></p>
+                        )} */}
                                     <div className="buttons">
                                         {/* {popUp !== item._id && <button className="chat-btn" onClick={(e) => { e.stopPropagation(); }}>Chat</button>} */}
                                         {popUp !== item._id && <button className="chat-btn" onClick={() => handleSolved(item._id)} >Solution</button>}
