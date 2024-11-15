@@ -459,6 +459,15 @@ input::file-selector-button {
   width: 90px;
   border-radius: 10px;
 }
+
+.badge {
+  padding: 3px;
+  color: var(--primary-color);
+  background-color: gray;
+  width: 120px;
+  border-radius: 10px;
+}
+
 /* ---- departments ---- */
 .departments-container {
   width: 100%;

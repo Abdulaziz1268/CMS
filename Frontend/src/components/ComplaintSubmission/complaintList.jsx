@@ -11,6 +11,7 @@ const ComplaintList = () => {
                 setData(response.data)
             })
     }, [])
+    const currentUser = localStorage.getItem('email')
 
     return (
         <div className="complaint-list-container">
@@ -18,11 +19,12 @@ const ComplaintList = () => {
 
         {/* Check if data is an array and map over it */}
         {data.length > 0 ? (
-            data.map((complaint, index) => {
-                if(complaint.status === 'read'){
+            data.map((complaint) => {
+                if(complaint.status === 'read' || complaint.reporter === currentUser ){
                     return (
-                        <div key={index} className="complaint-list-item">
-                    
+                        <div key={complaint._id} className="complaint-list-item">
+                            {complaint.reporter === currentUser && <p className="badge">Your Complaint</p>}
+                            {complaint.status !== 'read' && <p className="unresolved">Unresolved</p>}
                             <p><strong>Complaint description:</strong> {complaint.description}</p>
                             <p><strong>Complaint severity:</strong> {complaint.severity}</p>
                             <p>{complaint.file}</p>
