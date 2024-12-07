@@ -35,7 +35,7 @@ function Login(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:2005/login', formData)
+        axios.post('https://cms-hwdq.onrender.com/login', formData)
             .then(result => {
                 setIsLoading(true)
                 const token = result.data.token

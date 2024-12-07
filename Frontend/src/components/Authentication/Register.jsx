@@ -47,7 +47,7 @@ function Register() {
             await schema.validate(userData, {abortEarly: false})
 
             //call an api if valid
-            axios.post('http://localhost:2005/users', userData)
+            axios.post('https://cms-hwdq.onrender.com/users', userData)
             .then(response => console.log(response))
             .catch(error => console.log(error.message))
             console.log("success")
