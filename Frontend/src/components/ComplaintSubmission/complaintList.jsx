@@ -6,7 +6,7 @@ const ComplaintList = () => {
     const [data, setData] = useState('')
 
     useEffect(() => {
-        axios.get('http://localhost:2005/complaintList')
+        axios.get('https://cms-hwdq.onrender.com/complaintList')
             .then(response => {
                 setData(response.data)
             })

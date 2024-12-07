@@ -15,7 +15,7 @@ const Notifications = (props) => {
     })
 
     useEffect(() => {
-      axios.get('http://localhost:2005/unreadedComplaintList')
+      axios.get('https://cms-hwdq.onrender.com/unreadedComplaintList')
             .then(response => {
                 setMessages(response.data)
                 // console.log(response.data)
@@ -41,7 +41,7 @@ const Notifications = (props) => {
     }
     
     const handlePost = (id) => {
-        axios.put(`http://localhost:2005/solution/${id}`, textArea)
+        axios.put(`https://cms-hwdq.onrender.com/solution/${id}`, textArea)
             .then(response => {
                 console.log(response)
                 toast.success('Posted successfully')

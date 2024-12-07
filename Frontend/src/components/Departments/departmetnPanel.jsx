@@ -17,7 +17,7 @@ const DepartmentPanel = () => {
   const navigate = useNavigate()
 
   useEffect(()=> {
-    axios.get(`http://localhost:2005/getDepHead/${localStorage.getItem('fname')}`)
+    axios.get(`https://cms-hwdq.onrender.com/getDepHead/${localStorage.getItem('fname')}`)
       .then(response => {
         setDepartment(response.data)
         console.log(response.data)

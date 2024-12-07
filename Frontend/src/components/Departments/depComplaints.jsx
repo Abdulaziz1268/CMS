@@ -6,7 +6,7 @@ const DepComplaints = (props) => {
   const [clickedId, setClickedId] = useState(null); // State to track the ID of the clicked item
 
   useEffect(() => {
-    axios.get('http://localhost:2005/complaintList')
+    axios.get('https://cms-hwdq.onrender.com/complaintList')
       .then(response => {
         setData(response.data);
       })

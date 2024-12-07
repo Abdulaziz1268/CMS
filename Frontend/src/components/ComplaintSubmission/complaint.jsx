@@ -16,7 +16,7 @@ function Complaint() {
 
 
   useEffect (() => {
-    axios.get('http://localhost:2005/departmentList')
+    axios.get('https://cms-hwdq.onrender.com/departmentList')
       .then(response => {
         setDepList(response.data)
       })
@@ -60,7 +60,7 @@ function Complaint() {
     data.append('file', formData.file)
 
     axios
-      .post("http://localhost:2005/complaint", data, {
+      .post("https://cms-hwdq.onrender.com/complaint", data, {
         headers: {
           'Content-Type': 'mutipart/form-data'
         }

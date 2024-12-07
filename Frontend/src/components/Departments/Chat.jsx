@@ -3,7 +3,7 @@
 // import sendDark from '../../images/send-dark.png'
 // import { useState, useEffect } from "react"
 
-// const socket = io("http://localhost:2005")
+// const socket = io("https://cms-hwdq.onrender.com")
 
 // const Chat = () => {
 //   const [message, setMessage] = useState("")
