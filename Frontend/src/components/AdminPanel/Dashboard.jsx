@@ -16,7 +16,7 @@ const Dashboard = () => {
     
     useEffect(()=>{
         //user count
-        axios.get('http://localhost:2005/userList')
+        axios.get('https://cms-hwdq.onrender.com/userList')
             .then(result => {
                 setUserCount(result.data.length)
                 setData(prevState => {
@@ -30,7 +30,7 @@ const Dashboard = () => {
             .catch(err => err)
 
             // department count
-            axios.get('http://localhost:2005/departmentList')
+            axios.get('https://cms-hwdq.onrender.com/departmentList')
             .then(result => {
                 setDepartmentCount(result.data.length)
                 setData(prevState => {
@@ -43,7 +43,7 @@ const Dashboard = () => {
             .catch(err => err)
 
             //complaints
-            axios.get('http://localhost:2005/complaintList')
+            axios.get('https://cms-hwdq.onrender.com/complaintList')
             .then(result => {
                 setComplaintCount(result.data.length)
                 setData(prevState => {

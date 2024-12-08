@@ -4,6 +4,7 @@ import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, Toaster } from 'sonner';
+import api from './request'
 
 
 function Login(props) {
@@ -35,7 +36,7 @@ function Login(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('https://cms-hwdq.onrender.com/login', formData)
+        api.post('/login', formData)
             .then(result => {
                 setIsLoading(true)
                 const token = result.data.token

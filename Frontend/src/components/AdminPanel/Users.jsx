@@ -22,7 +22,7 @@ const Users = () => {
 
 
     useEffect(()=>{
-        axios.get('http://localhost:2005/userList')
+        axios.get('https://cms-hwdq.onrender.com/userList')
             .then(result => {
                 setData(result.data)
             })
@@ -44,7 +44,7 @@ const Users = () => {
       const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.patch(`http://localhost:2005/updateUser/${editUserId}`, editFormData);
+          const response = await axios.patch(`https://cms-hwdq.onrender.com/updateUser/${editUserId}`, editFormData);
           setData(data.map(user => (user._id === editUserId ? response.data : user)));
           setEditUserId(null); // Exit edit mode
           toast.success('User successfull updated')
@@ -56,7 +56,7 @@ const Users = () => {
 
     const handleDelete = async (id) => {
         try {
-            const result = await axios.delete(`http://localhost:2005/deleteUser/${id}`)
+            const result = await axios.delete(`https://cms-hwdq.onrender.com/deleteUser/${id}`)
             console.log(result)
             setData((prevItems) => prevItems.filter(item => item._id !== id));
             toast.success('User successfully deleted')

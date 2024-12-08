@@ -70,7 +70,7 @@ const Departments = () => {
   });
 
     useEffect(()=>{
-        axios.get('http://localhost:2005/departmentList')
+        axios.get('https://cms-hwdq.onrender.com/departmentList')
             .then(result => {
                 setData(result.data)
             })
@@ -92,7 +92,7 @@ const Departments = () => {
       const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.patch(`http://localhost:2005/updateDepartment/${editDepId}`, editFormData);
+          const response = await axios.patch(`https://cms-hwdq.onrender.com/updateDepartment/${editDepId}`, editFormData);
           setData(data.map(dep => (dep._id === editDepId ? response.data : dep)));
           setEditDepId(null); // Exit edit mode
           toast.success('successfull')
