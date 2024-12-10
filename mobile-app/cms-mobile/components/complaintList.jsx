@@ -40,7 +40,7 @@ export default ComplaintList;
 
 const styles = StyleSheet.create({
   complaintContainer: {
-    marginTop: 30,
+    // marginTop: 30,
     height: 'auto',
     width: 'auto',
     padding: 10,
