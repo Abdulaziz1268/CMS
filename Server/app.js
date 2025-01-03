@@ -81,10 +81,10 @@ const Department = model('Department', departmentSchema)
 //configuring multer storage
 const storage = multer.diskStorage({
     destination : (req, file, cb) => {
-        cb(null, 'uploads/')
+        return cb(null, 'uploads/')
     },
     filename : (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname))
+       return cb(null, Date.now() + path.extname(file.originalname))
     }
 })
 
