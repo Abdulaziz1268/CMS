@@ -37,7 +37,7 @@ const Departments = () => {
     const handleAddSubmit = async (e) => {
         e.preventDefault()
         try {
-            const newDep = await axios.post(`http://localhost:2005/department/`, formData)
+            const newDep = await axios.post(`https://cms-hwdq.onrender.com/department/`, formData)
             console.log(newDep)
             togglePopup()
             toast.success('New Department Successfully added')
@@ -49,7 +49,7 @@ const Departments = () => {
 
     const handleDelete = async (id) => {
         try {
-            const result = await axios.delete(`http://localhost:2005/deleteDepartment/${id}`)
+            const result = await axios.delete(`https://cms-hwdq.onrender.com/deleteDepartment/${id}`)
             console.log(result)
             setNewData((prevItems) => prevItems.filter(item => item._id !== id));
             toast.success('Department successfully deleted')
