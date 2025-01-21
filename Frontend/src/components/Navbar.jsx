@@ -1,6 +1,9 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../Context/AuthContext";
 
-const NavBar = (props) => {
+const NavBar = () => {
+    const {isLoged} = useContext(AuthContext)   
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -31,9 +34,9 @@ const NavBar = (props) => {
                         <li><Link className="nav-link" to={'/ComplaintList'} >Complaint List</Link></li>
                         </>
                     }
-                    {props.isLoged && showWelcome ? <li>Welcome {fname}</li>: <li></li>}
+                    {isLoged && showWelcome ? <li>Welcome {fname}</li>: <li></li>}
                 </ul>
-                {props.isLoged ? <button className="nav-btn" onClick={handleLogout}>Logout</button> : <button className="nav-btn" onClick={handleClick}>Signin/ Signup</button>}
+                {isLoged ? <button className="nav-btn" onClick={handleLogout}>Logout</button> : <button className="nav-btn" onClick={handleClick}>Signin/ Signup</button>}
             </nav>
             <Outlet />
         </div>

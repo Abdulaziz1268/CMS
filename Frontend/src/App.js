@@ -18,6 +18,7 @@ import NotFound from './components/NotFound';
 import Notifications from './components/Departments/Notifications';
 import DepComplaints from './components/Departments/depComplaints';
 import DepartmentPanel from './components/Departments/departmetnPanel';
+import AuthContext from './Context/AuthContext';
 
 
 function App() {
@@ -44,36 +45,37 @@ function App() {
 
   return (
     <div className="app-container">
-      <Routes>
-        {/* Department Routes */}
-        
-        <Route path='/departmentPanel' element={isLoged ? <DepartmentPanel /> : <Navigate replace to="/login" />} />
-        <Route path='/notifications' element={isLoged ? <Notifications /> : <Navigate replace to="/login" />} />
-        <Route path='/depComplaints' element={isLoged ? <DepComplaints /> : <Navigate replace to="/login" />} />
-        
-        {/* Authentication Routes */}
-        <Route path="/login" element={<Login handleIsLoged={handleIsLoged} />} />
-        <Route path="/forget-password" element={<ForgetPassword />} />
-        <Route path="/register" element={<Register />} />
+      <AuthContext.Provider value={{ isLoged, handleIsLoged }}>
+        <Routes>
+          {/* Department Routes */}
+          <Route path='/departmentPanel' element={isLoged ? <DepartmentPanel /> : <Navigate replace to="/login" />} />
+          <Route path='/notifications' element={isLoged ? <Notifications /> : <Navigate replace to="/login" />} />
+          <Route path='/depComplaints' element={isLoged ? <DepComplaints /> : <Navigate replace to="/login" />} />
+          
+          {/* Authentication Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={isLoged ? <Admin /> : <Navigate replace to="/login" />}>
-          <Route index path="" element={<Dashboard />} />
-          <Route path="complaints" element={<Complaints />} />
-          <Route path="departments" element={<Departments />} />
-          <Route path="users" element={<Users />} />
-        </Route>
+          {/* Admin Routes */}
+          <Route path="/admin" element={isLoged ? <Admin /> : <Navigate replace to="/login" />}>
+            <Route index path="" element={<Dashboard />} />
+            <Route path="complaints" element={<Complaints />} />
+            <Route path="departments" element={<Departments />} />
+            <Route path="users" element={<Users />} />
+          </Route>
 
-        {/* Main Routes */}
-        <Route path="/" element={<NavBar isLoged={isLoged} />}>
-          <Route path="complaint" element={isLoged ? <Complaint /> : <Navigate replace to="/login" />} />
-          <Route path="complaintList" element={isLoged ? <ComplaintList /> : <Navigate replace to="/login" />} />
-          <Route index element={<Home />} />
-        </Route>
-        
-        {/* Not Found Route */}
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+          {/* Main Routes */}
+          <Route path="/" element={<NavBar />}>
+            <Route path="complaint" element={isLoged ? <Complaint /> : <Navigate replace to="/login" />} />
+            <Route path="complaintList" element={isLoged ? <ComplaintList /> : <Navigate replace to="/login" />} />
+            <Route index element={<Home />} />
+          </Route>
+          
+          {/* Not Found Route */}
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </AuthContext.Provider>
     </div>
   );
 }

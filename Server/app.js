@@ -19,7 +19,7 @@ const jwtSecret = process.env.JWT_SECRET;
 app.use(express.json())
 app.use(cors({
     origin: 'https://commansys.netlify.app', // Replace this with your frontend's URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true // If you're using cookies or authentication
 }));
 
@@ -110,24 +110,6 @@ app.get('/complaintList', async (req, res) => {
         res.status(500).json(error)
     }
 })
-
-// app.get('/unreadedcomplaintList', async (req, res) => {
-//     try {
-//         const complaints = await Complaint.find({status: 'unread'})
-//         const complaintsWithFilePath = complaints.map(complaint => {
-//             const filePath = path.join(__dirname, complaint.fileUrl)
-//             if(fs.existsSync(filePath)){
-//                 return { ...complaint._doc, filePath}
-//             } else {
-//                 return { ...complaint._doc }
-//             }
-//         })
-
-//         res.json(complaintsWithFilePath)
-//     } catch (error) {
-//         res.status(500).json(error)
-//     }
-// })
 
 app.get('/unreadedcomplaintList', async (req, res) => {
     try {
@@ -332,7 +314,7 @@ app.patch('/updateUser/:id', async (req, res) => {
             {$set: updateData}
         )
         if(updateUser.nModified === 0){
-            res.status(404).json({error: "Department not found or no changes made"})
+            res.status(404).json({error: "User not found or no changes made"})
         }
         res.status(200).json(updateUser)
     } catch (error) {

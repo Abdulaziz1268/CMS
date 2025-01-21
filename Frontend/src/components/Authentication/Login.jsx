@@ -1,13 +1,14 @@
 import photo from './google-icon.png'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast, Toaster } from 'sonner';
 import api from './request'
+import AuthContext from '../../Context/AuthContext';
 
 
-function Login(props) {
+function Login() {
+    const {handleIsLoged} = useContext(AuthContext)
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -33,7 +34,6 @@ function Login(props) {
         navigate("/Register")
     }
 
-
     const handleSubmit = (e) => {
         e.preventDefault()
         api.post('/login', formData)
@@ -47,7 +47,7 @@ function Login(props) {
                 localStorage.setItem('email', email)
                 localStorage.setItem('fname', fname)
                 localStorage.setItem('role', role)
-                props.handleIsLoged()
+                handleIsLoged()
                 if(result.data.role === 'admin'){
                     navigate('/admin')
                 } else {
