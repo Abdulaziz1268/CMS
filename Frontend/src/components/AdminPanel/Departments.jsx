@@ -1,6 +1,8 @@
 import axios from "axios"
 import { Toaster, toast } from "sonner"
 import { useEffect, useState } from "react"
+import Popup from "reactjs-popup"
+
 import deleteWhite from '../../images/delete-white.png'
 import deleteDark from '../../images/delete-dark.png'
 import editWhite from '../../images/edit-white.png'
@@ -158,8 +160,29 @@ const Departments = () => {
                     </tbody> 
                 </table>
                 
-                <button className="dep-btn add-btn" onClick={togglePopup}>+ Add Department</button>
-                {isOpen && 
+                {/* <button className="dep-btn add-btn" onClick={togglePopup}>+ Add Department</button> */}
+                <Popup
+                    trigger={<button className="dep-btn add-btn">+ Add Department</button>}
+                    modal
+                >
+                    { close => (
+                        <form onSubmit={handleAddSubmit} className="department-form">
+                            <label htmlFor="name">Name</label>
+                            <input type="text" id="name" name="name" value={formData.name} className="inputs em-pas" required onChange={handleChange} />
+                            <label htmlFor="head">Head</label>
+                            <input type="text" id="head" name="head" value={formData.head} className="inputs em-pas" required onChange={handleChange} />
+                            <label htmlFor="members">Members</label>
+                            <input type="text" id="members" name="members" value={formData.members} className="inputs em-pas" required onChange={handleChange} />
+                            {/* later make this a select with list of checkbexes nested inside options */}
+                            <div className="add-btn-div">
+                                <button className="dep-inputs dep-btn dep-one" onClick={close()}>Cancel</button>
+                                <input type="submit" name="submit" value='Submit' className="dep-inputs dep-btn dep-two" />
+                            </div>
+                        </form>
+                        )
+                    }
+                </Popup>
+                {/* {isOpen && 
                     <form onSubmit={handleAddSubmit} className="department-form">
                         <label htmlFor="name">Name</label>
                         <input type="text" id="name" name="name" value={formData.name} className="inputs em-pas" required onChange={handleChange} />
@@ -168,12 +191,12 @@ const Departments = () => {
                         <label htmlFor="members">Members</label>
                         <input type="text" id="members" name="members" value={formData.members} className="inputs em-pas" required onChange={handleChange} />
                         {/* later make this a select with list of checkbexes nested inside options */}
-                        <div className="add-btn-div">
+                 {/*</div>       <div className="add-btn-div">
                             <button className="dep-inputs dep-btn dep-one" onClick={togglePopup}>Cancel</button>
                             <input type="submit" name="submit" value='Submit' className="dep-inputs dep-btn dep-two" />
                         </div>
                     </form>
-                }
+                } */}
             </div>
             
         </div>
