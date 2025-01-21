@@ -539,9 +539,9 @@ input::file-selector-button {
   border-radius: 10px;
   box-shadow: 0px 0px 5px 5px #9ec0e9;
   border: none;
-  position: absolute;
+  /* position: absolute;
   top: 70%;
-  left: 40%;
+  left: 40%; */
   background-color: var(--primary-color);
   z-index: 2;
 }
