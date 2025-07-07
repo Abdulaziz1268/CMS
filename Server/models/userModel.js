@@ -1,5 +1,5 @@
-import mongoose, { Schema, model } from "mongoose"
-import { genSalt, hash } from "bcryptjs"
+import { Schema, model } from "mongoose"
+import bcrypt from "bcryptjs"
 
 const userSchema = new Schema(
   {
@@ -8,7 +8,6 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -23,8 +22,8 @@ userSchema.index({ email: 1 }, { unique: true }) // this is added so that the em
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next()
-  const salt = await genSalt()
-  this.password = await hash(this.password, salt)
+  const salt = await bcrypt.genSalt()
+  this.password = await bcrypt.hash(this.password, salt)
   next()
 })
 

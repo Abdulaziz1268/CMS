@@ -10,4 +10,6 @@ const storage = diskStorage({
   },
 })
 
-export default multer({ storage })
+const upload = multer({ storage })
+
+export default upload

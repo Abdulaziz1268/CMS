@@ -13,8 +13,8 @@ import {
 } from "../controllers/adminControllers.js"
 import protect from "../middleware/authMiddleware.js"
 
-router.get("/complaintList", protect, getComplaintList)
-router.get("/userList", protect, getUserList)
+router.get("/complaintList", getComplaintList)
+router.get("/userList", getUserList)
 router.get("/departmentList", protect, getDepartmentList)
 router.get("/getDepHead/:name", protect, getDepHead)
 router.post("/department", protect, createDepartment)

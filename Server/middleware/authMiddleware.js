@@ -1,12 +1,13 @@
-import { verify } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 const protect = async (req, res, next) => {
   try {
     const token = await req.header("Authorization").split(" ")[1]
-    if (!token)
+    if (!token) {
       return res.status(401).json({ message: "No token, unauthorized" })
+    }
 
-    const decoded = verify(token, process.env.JWT_SECRET)
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.user = decoded.user
     next()
   } catch (error) {

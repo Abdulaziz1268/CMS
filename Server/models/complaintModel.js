@@ -1,4 +1,4 @@
-import { model } from "mongoose"
+import { model, Schema } from "mongoose"
 
 const complaintSchema = new Schema(
   {

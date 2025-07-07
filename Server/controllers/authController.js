@@ -1,5 +1,5 @@
 import { compare } from "bcryptjs"
-import { sign } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 import User from "../models/userModel.js"
 
@@ -21,7 +21,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" })
 
     // generate jwt
-    const token = sign({ id: user._id }, jwtSecret, { expiresIn: "1h" })
+    const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: "1h" })
     res.json({ token, email, fname: user.fname, role: user.role })
   } catch (error) {
     res.status(500).json(error)
