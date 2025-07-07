@@ -1,10 +1,7 @@
 import { compare } from "bcryptjs"
 import { sign } from "jsonwebtoken"
-import dotenv from "dotenv"
 
 import User from "../models/userModel.js"
-
-dotenv.config()
 
 const jwtSecret = process.env.JWT_SECRET
 

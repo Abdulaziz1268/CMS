@@ -5,10 +5,15 @@ import {
   getUnreadedComplaintList,
   solution,
 } from "../controllers/headControllers.js"
+import protect from "../middleware/authMiddleware.js"
 
-router.get("/complaintList", getComplaintList)
-router.get("/departmentList", headControllerController.getDepartmentList)
-router.get("/unreadedcomplaintList", getUnreadedComplaintList)
-router.put("/solution/:id", solution)
+router.get("/complaintList", protect, getComplaintList)
+router.get(
+  "/departmentList",
+  protect,
+  headControllerController.getDepartmentList
+)
+router.get("/unreadedcomplaintList", protect, getUnreadedComplaintList)
+router.put("/solution/:id", protect, solution)
 
 export default router
