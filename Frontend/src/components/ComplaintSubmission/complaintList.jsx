@@ -6,7 +6,7 @@ const ComplaintList = () => {
 
   useEffect(() => {
     axios
-      .get("https://cms-hwdq.onrender.com/complaintList")
+      .get("https://cms-hwdq.onrender.com/api/admin/complaintList")
       .then((response) => {
         setData(response.data.reverse())
       })
