@@ -34,7 +34,7 @@ app.use("/api/admin", adminRoutes)
 app.use("/api/head", headRoutes)
 app.use("/api/auth", authRoutes)
 
-const port = process.env.PORT
+const port = process.env.PORT || 2005
 app.listen(port, () => console.log(`server listening on port ${port}...`))
 
 // const jwtSecret = process.env.JWT_SECRET
