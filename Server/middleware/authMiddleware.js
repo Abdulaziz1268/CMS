@@ -11,7 +11,7 @@ const protect = async (req, res, next) => {
     req.user = decoded.user
     next()
   } catch (error) {
-    console.log(error.message)
+    console.log("error authenticating", error.message)
   }
 }
 

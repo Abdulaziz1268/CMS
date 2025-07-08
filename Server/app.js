@@ -1,6 +1,7 @@
 import express, { json } from "express"
 import cors from "cors"
 import dotenv from "dotenv"
+dotenv.config()
 
 import userRoutes from "./routes/userRoutes.js"
 import headRoutes from "./routes/headRoutes.js"
@@ -9,8 +10,6 @@ import authRoutes from "./routes/authRoutes.js"
 import connectDB from "./config/db.js"
 
 const app = express()
-
-dotenv.config()
 connectDB()
 
 //middlewares
