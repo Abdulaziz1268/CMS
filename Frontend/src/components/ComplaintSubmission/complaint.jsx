@@ -14,19 +14,17 @@ function Complaint() {
 
   useEffect(() => {
     axios
-      .get("https://localhost:2005/api/user/departmentList")
+      .get("http://localhost:2005/api/user/departmentList")
       .then((response) => {
         setDepList(response.data)
       })
       .catch((error) => {
         console.log(error)
-        toast.error(error.response.data.message || "error fetching departments")
+        // toast.error(
+        //   error.response?.data?.message || "error fetching departments"
+        // )
       })
   }, [])
-
-  console.log(formData)
-
-  console.log(formData.reporter)
 
   function handleChange(event) {
     setFormData((prevData) => {
@@ -65,6 +63,13 @@ function Complaint() {
       .then((response) => {
         console.log(response.data)
         toast.success("your complaint is successfully submited")
+        setFormData({
+          department: "",
+          severity: "",
+          description: "",
+          file: null,
+          reporter: localStorage.getItem("email") || "",
+        })
       })
       .catch((error) => {
         console.log(error.message)
