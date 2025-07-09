@@ -30,11 +30,11 @@ export const getDepartmentList = async (req, res) => {
   }
 }
 
-export const getDepHead = async (req, res) => {
-  const { name } = req.params
+export const getDepartment = async (req, res) => {
+  const { headName } = req.params
   try {
-    const depHead = await Department.find({ head: name })
-    res.status(200).json(depHead)
+    const department = await Department.find({ head: headName })
+    res.status(200).json(department)
   } catch (error) {
     res.status(404).json(error)
   }

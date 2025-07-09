@@ -1,8 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Toaster, toast } from 'sonner';
-
-
+import { Toaster, toast } from "sonner"
 
 function Complaint() {
   const [depList, setDepList] = useState([])
@@ -11,21 +9,20 @@ function Complaint() {
     severity: "",
     description: "",
     file: null,
-    reporter: localStorage.getItem("email") || ''
+    reporter: localStorage.getItem("email") || "",
   })
 
-
-  useEffect (() => {
-    axios.get('https://cms-hwdq.onrender.com/departmentList')
-      .then(response => {
+  useEffect(() => {
+    axios
+      .get("https://localhost:2005/api/user/departmentList")
+      .then((response) => {
         setDepList(response.data)
       })
-      .catch (error => {
+      .catch((error) => {
         console.log(error)
-      toast.error(error.response.data.message || 'error fetching departments')
+        toast.error(error.response.data.message || "error fetching departments")
       })
-    
-    }, [])
+  }, [])
 
   console.log(formData)
 
@@ -39,13 +36,13 @@ function Complaint() {
       }
     })
   }
-  
-  function handleFileChange (event) {
-    setFormData(prevState => {
-      return ({
+
+  function handleFileChange(event) {
+    setFormData((prevState) => {
+      return {
         ...prevState,
-        file : event.target.files[0]
-      })
+        file: event.target.files[0],
+      }
     })
   }
 
@@ -53,26 +50,26 @@ function Complaint() {
     e.preventDefault()
 
     const data = new FormData()
-    data.append('department', formData.department)
-    data.append('severity', formData.severity)
-    data.append('description', formData.description)
-    data.append('reporter', formData.reporter)
-    data.append('file', formData.file)
+    data.append("department", formData.department)
+    data.append("severity", formData.severity)
+    data.append("description", formData.description)
+    data.append("reporter", formData.reporter)
+    data.append("file", formData.file)
 
     axios
-      .post("https://cms-hwdq.onrender.com/complaint", data, {
+      .post("http://localhost:2005/api/user/createComplaint", data, {
         headers: {
-          'Content-Type': 'mutipart/form-data'
-        }
+          "Content-Type": "mutipart/form-data",
+        },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response.data)
         toast.success("your complaint is successfully submited")
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.message)
         toast.error("there was an error please try again")
-  })
+      })
   }
 
   return (
@@ -92,8 +89,10 @@ function Complaint() {
               Select department
             </option>
             <option value="admin">Admin </option>
-            {depList.map(dep => (
-              <option key={dep._id} value={dep.name} >{dep.name}</option>
+            {depList.map((dep) => (
+              <option key={dep._id} value={dep.name}>
+                {dep.name}
+              </option>
             ))}
           </select>
           <label htmlFor="severity">severity</label>

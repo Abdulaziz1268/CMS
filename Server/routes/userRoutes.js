@@ -8,8 +8,8 @@ import {
 import protect from "../middleware/authMiddleware.js"
 import upload from "../config/storage.js"
 
-router.get("/complaintList", protect, getComplaintList)
-router.get("/departmentList", protect, getDepartmentList)
-router.post("/complaint", protect, upload.single("file"), createComplaint)
+router.get("/complaintList", getComplaintList)
+router.get("/departmentList", getDepartmentList)
+router.post("/createComplaint", upload.single("file"), createComplaint)
 
 export default router
