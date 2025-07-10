@@ -1,16 +1,26 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { adminApi, headApi, userApi } from "../Authentication/api"
 
 const ComplaintList = () => {
-  const [data, setData] = useState("")
+  const [data, setData] = useState([])
 
   useEffect(() => {
-    axios
-      .get("https://cms-hwdq.onrender.com/api/admin/complaintList")
-      .then((response) => {
+    const checkUser = async () => {
+      const role = localStorage.getItem("role")
+      const api =
+        role === "admin" ? adminApi : role === "head" ? headApi : userApi
+      try {
+        const response = await api.get("/complaintList")
         setData(response.data.reverse())
-      })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    checkUser()
   }, [])
+
   const currentUser = localStorage.getItem("email")
 
   return (

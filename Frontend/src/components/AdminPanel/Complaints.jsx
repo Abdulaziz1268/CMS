@@ -42,7 +42,7 @@ const Complaints = () => {
             <p>
               <strong>posted at:</strong> {complaint.createdAt}
             </p>
-            {/*late add attachment*/}
+            {/*later add attachment*/}
           </div>
         ))
       ) : (

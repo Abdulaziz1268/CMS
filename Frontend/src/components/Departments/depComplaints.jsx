@@ -1,13 +1,14 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
+
+import { headApi } from "../Authentication/api"
 
 const DepComplaints = (props) => {
   const [data, setData] = useState([])
   const [clickedId, setClickedId] = useState(null) // State to track the ID of the clicked item
 
   useEffect(() => {
-    axios
-      .get("http://localhost:2005/api/head/complaintList")
+    headApi
+      .get("/complaintList")
       .then((response) => {
         setData(response.data)
       })
@@ -18,7 +19,7 @@ const DepComplaints = (props) => {
     // Toggle expansion: if the same item is clicked again, collapse it; otherwise, expand it
     setClickedId(clickedId === id ? null : id)
   }
-  //  console.log(props.department[0])
+
   return (
     <div className="department-complaints-container">
       {data.map((item) => {

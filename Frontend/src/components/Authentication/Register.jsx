@@ -1,8 +1,8 @@
-import axios from "axios"
-import React, { useState } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from "sonner"
 import * as Yup from "yup"
+import { authApi } from "./api"
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false)
@@ -45,16 +45,17 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError({})
+
     try {
-      //validating form data
       await schema.validate(userData, { abortEarly: false })
 
-      //call an api if valid
-      axios
-        .post("http://localhost:2005/api/auth/register", userData)
+      authApi
+        .post("/register", userData)
         .then((response) => console.log(response))
         .catch((error) => console.log(error.message))
+
       console.log("success")
+
       navigate("/login")
     } catch (err) {
       const newErrors = {}

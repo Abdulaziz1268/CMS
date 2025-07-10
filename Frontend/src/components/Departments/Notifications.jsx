@@ -1,10 +1,11 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
+import { toast, Toaster } from "sonner"
+
+import { headApi } from "../Authentication/api"
 import arrowDark from "../../images/arow-dark.png"
+import arrowUpDark from "../../images/arrow-up-dark.png"
 import arrowWhite from "../../images/arow-white.png"
 import arroUpWhite from "../../images/arrow-up-white.png"
-import arrowUpDark from "../../images/arrow-up-dark.png"
-import { toast, Toaster } from "sonner"
 
 const Notifications = (props) => {
   const [messages, setMessages] = useState([])
@@ -15,11 +16,10 @@ const Notifications = (props) => {
   })
 
   useEffect(() => {
-    axios
-      .get("http://localhost:2005/api/head/unreadedcomplaintList")
+    headApi
+      .get("/unreadedcomplaintList")
       .then((response) => {
         setMessages(response.data)
-        // console.log(response.data)
       })
       .catch((error) => console.log(error))
   }, [props.refresher])
@@ -30,7 +30,6 @@ const Notifications = (props) => {
       solution: "",
     })
   }
-  // console.log(messages)
 
   const handleClick = (id) => {
     // Toggle expansion: if the same item is clicked again, collapse it; otherwise, expand it
@@ -41,29 +40,23 @@ const Notifications = (props) => {
     setTextArea({ solution: event.target.value })
   }
 
-  const handlePost = (id) => {
-    axios
-      .put(`http://localhost:2005/api/head/solution/${id}`, textArea)
-      .then((response) => {
-        console.log(response)
-        toast.success("Posted successfully")
-        props.handleRefresher()
-        setTextArea({ solution: "" })
-      })
-      .catch((error) => {
-        console.log(error)
-        toast.error("there was a problem posting the solution")
-        // console.log(id, textArea)
-      })
+  const handlePost = async (id) => {
+    try {
+      const response = await headApi.put(`/solution/${id}`, textArea)
+      toast.success("Posted successfully")
+      props.handleRefresher()
+      setTextArea({ solution: "" })
+    } catch (error) {
+      console.log(error)
+      toast.error("there was a problem posting the solution")
+    }
   }
-  // console.log(props.department[0].name)
-  console.log("eee", messages)
+
   return (
     <div className="notifications-container">
       <Toaster richColors expand={false} position="bottom-center" />
       {messages.length > 0 ? (
         messages.map((item) => {
-          //   {console.log(item.department)}
           if (
             props.department.length > 0 &&
             item.status === "unread" &&

@@ -1,12 +1,13 @@
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+
 import Notifications from "./Notifications"
 import DepComplaints from "./depComplaints"
 import homeWhite from "../../images/home-white.png"
 import homeDark from "../../images/home-dark.png"
 import sun from "../../images/light-mode.png"
 import moon from "../../images/dark-mode.png"
-import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { headApi } from "../Authentication/api"
 
 const DepartmentPanel = () => {
   const [darkTheme, setDarkTheme] = useState(false)
@@ -16,12 +17,8 @@ const DepartmentPanel = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios
-      .get(
-        `http://localhost:2005/api/head/getDepHead/${localStorage.getItem(
-          "fname"
-        )}`
-      )
+    headApi
+      .get(`/getDepartment/${localStorage.getItem("fname")}`)
       .then((response) => {
         setDepartment(response.data)
         console.log(response.data)

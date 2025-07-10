@@ -1,9 +1,11 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { Toaster, toast } from "sonner"
 
+import { adminApi, headApi, userApi } from "../Authentication/api"
+
 function Complaint() {
   const [depList, setDepList] = useState([])
+  const [loggedUser, setLoggedUser] = useState("")
   const [formData, setFormData] = useState({
     department: "",
     severity: "",
@@ -13,17 +15,24 @@ function Complaint() {
   })
 
   useEffect(() => {
-    axios
-      .get("http://localhost:2005/api/user/departmentList")
-      .then((response) => {
+    const checkUser = async () => {
+      const role = localStorage.getItem("role")
+      setLoggedUser(role)
+      const api =
+        role === "admin" ? adminApi : role === "head" ? headApi : userApi
+
+      try {
+        const response = await api.get("/departmentList")
         setDepList(response.data)
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log(error)
-        // toast.error(
-        //   error.response?.data?.message || "error fetching departments"
-        // )
-      })
+        toast.error(
+          error.response?.data?.message || "error fetching departments"
+        )
+      }
+    }
+
+    checkUser()
   }, [])
 
   function handleChange(event) {
@@ -54,10 +63,16 @@ function Complaint() {
     data.append("reporter", formData.reporter)
     data.append("file", formData.file)
 
-    axios
-      .post("http://localhost:2005/api/user/createComplaint", data, {
+    const api =
+      loggedUser === "admin"
+        ? adminApi
+        : loggedUser === "head"
+        ? headApi
+        : userApi
+    api
+      .post("/createComplaint", data, {
         headers: {
-          "Content-Type": "mutipart/form-data",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
