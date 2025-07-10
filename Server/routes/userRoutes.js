@@ -1,12 +1,13 @@
 import { Router } from "express"
-const router = Router()
+
 import {
   getComplaintList,
   getDepartmentList,
   createComplaint,
 } from "../controllers/userController.js"
-import protect from "../middleware/authMiddleware.js"
 import upload from "../config/storage.js"
+
+const router = Router()
 
 router.get("/complaintList", getComplaintList)
 router.get("/departmentList", getDepartmentList)

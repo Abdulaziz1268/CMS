@@ -1,5 +1,5 @@
 import { Router } from "express"
-const router = Router()
+
 import {
   getComplaintList,
   getDepartmentList,
@@ -7,7 +7,8 @@ import {
   solution,
 } from "../controllers/headControllers.js"
 import { getDepartment } from "../controllers/adminControllers.js"
-import protect from "../middleware/authMiddleware.js"
+
+const router = Router()
 
 router.get("/complaintList", getComplaintList)
 router.get("/getDepartment/:headName", getDepartment)

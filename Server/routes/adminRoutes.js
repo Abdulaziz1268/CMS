@@ -1,5 +1,5 @@
 import { Router } from "express"
-const router = Router()
+
 import {
   getComplaintList,
   getUserList,
@@ -11,7 +11,8 @@ import {
   updateUser,
   updateDepartment,
 } from "../controllers/adminControllers.js"
-import protect from "../middleware/authMiddleware.js"
+
+const router = Router()
 
 router.get("/complaintList", getComplaintList)
 router.get("/userList", getUserList)
