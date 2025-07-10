@@ -1,17 +1,17 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
+import { adminApi } from "../Authentication/api"
+
 const Complaints = () => {
   const [data, setData] = useState("")
+
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios
-      .get("https://localhost:2005/api/admin/complaintList")
-      .then((response) => {
-        setData(response.data)
-      })
+    adminApi.get("/complaintList").then((response) => {
+      setData(response.data)
+    })
   }, [])
 
   return (

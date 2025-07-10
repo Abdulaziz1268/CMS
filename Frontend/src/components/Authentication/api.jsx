@@ -15,6 +15,10 @@ export const headApi = axios.create({
   baseURL: `${localURL}/api/head/`,
 })
 
+export const authApi = axios.create({
+  baseURL: `${localURL}/api/auth/`,
+})
+
 // api.interceptors.request.use((req) => {
 //   const token = localStorage.getItem("token")
 //   if (token) {

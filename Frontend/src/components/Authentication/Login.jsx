@@ -1,21 +1,20 @@
-import photo from "./google-icon.png"
-import React, { useEffect, useState, useContext } from "react"
-import Register from "./Register"
+import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { toast, Toaster } from "sonner"
-import api from "./request"
+
+import { authApi } from "./api"
 import AuthContext from "../../Context/AuthContext"
-import axios from "axios"
 
 function Login() {
   const { handleIsLoged } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   })
-  const [isLoading, setIsLoading] = useState(false)
+
   const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState)
@@ -34,34 +33,30 @@ function Login() {
     navigate("/Register")
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    axios
-      .post("http://localhost:2005/api/auth/login", formData)
-      .then((result) => {
-        const token = result.data.token
-        console.log(token)
-        const email = result.data.email
-        const fname = result.data.fname
-        const role = result.data.role
-        localStorage.setItem("token", token)
-        localStorage.setItem("email", email)
-        localStorage.setItem("fname", fname)
-        localStorage.setItem("role", role)
-        handleIsLoged()
-        setIsLoading(false)
-        if (result.data.role === "admin") {
-          navigate("/admin")
-        } else {
-          navigate("/")
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        setIsLoading(false)
-        // toast.error(err.response.data.message)
-      })
+    try {
+      const { data } = await authApi.post("/login", formData)
+      const { token, email, fname, role } = data
+      localStorage.setItem("token", token)
+      localStorage.setItem("email", email)
+      localStorage.setItem("fname", fname)
+      localStorage.setItem("role", role)
+
+      handleIsLoged()
+
+      if (role === "admin") {
+        navigate("/admin")
+      } else {
+        navigate("/")
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response?.data?.message || "Login Failed")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
