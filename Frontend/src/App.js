@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useContext } from "react"
 
 import "./App.css"
 import Admin from "./components/AdminPanel/Admin"
-import AuthContext from "./Context/AuthContext"
-import Chat from "./components/Departments/Chat"
+import { AuthProvider, AuthContext } from "./Context/AuthContext"
+// import Chat from "./components/Departments/Chat"
 import Complaint from "./components/ComplaintSubmission/complaint"
 import ComplaintList from "./components/ComplaintSubmission/complaintList"
 import Complaints from "./components/AdminPanel/Complaints"
@@ -22,90 +22,76 @@ import Register from "./components/Authentication/Register"
 import Users from "./components/AdminPanel/Users"
 
 function App() {
-  // Initialize isLoged based on token in localStorage
-  const [isLoged, setIsLoged] = useState(!!localStorage.getItem("token"))
-
-  useEffect(() => {
-    const checkToken = () => {
-      const token = localStorage.getItem("token")
-      setIsLoged(!!token) // Update isLoged based on token presence
-    }
-
-    checkToken()
-    // Listen for changes to localStorage to detect login/logout across tabs
-    window.addEventListener("storage", checkToken)
-
-    // Clean up event listener on component unmount
-    return () => window.removeEventListener("storage", checkToken)
-  }, [])
-
-  const handleIsLoged = () => {
-    setIsLoged((prevState) => !prevState)
-  }
-
   return (
-    <div className="app-container">
-      <AuthContext.Provider value={{ isLoged, handleIsLoged }}>
-        <Routes>
-          {/* Department Routes */}
-          <Route
-            path="/departmentPanel"
-            element={
-              isLoged ? <DepartmentPanel /> : <Navigate replace to="/login" />
-            }
-          />
-          <Route
-            path="/notifications"
-            element={
-              isLoged ? <Notifications /> : <Navigate replace to="/login" />
-            }
-          />
-          <Route
-            path="/depComplaints"
-            element={
-              isLoged ? <DepComplaints /> : <Navigate replace to="/login" />
-            }
-          />
-
-          {/* Authentication Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/register" element={<Register />} />
-
-          {/* Admin Routes */}
-          <Route
-            path="/admin"
-            element={isLoged ? <Admin /> : <Navigate replace to="/login" />}
-          >
-            <Route index path="" element={<Dashboard />} />
-            <Route path="complaints" element={<Complaints />} />
-            <Route path="departments" element={<Departments />} />
-            <Route path="users" element={<Users />} />
-          </Route>
-
-          {/* Main Routes */}
-          <Route path="/" element={<NavBar />}>
-            <Route
-              path="complaint"
-              element={
-                isLoged ? <Complaint /> : <Navigate replace to="/login" />
-              }
-            />
-            <Route
-              path="complaintList"
-              element={
-                isLoged ? <ComplaintList /> : <Navigate replace to="/login" />
-              }
-            />
-            <Route index element={<Home />} />
-          </Route>
-
-          {/* Not Found Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </AuthContext.Provider>
-    </div>
+    <AuthProvider>
+      <RoutesComponent />
+    </AuthProvider>
   )
 }
 
+const RoutesComponent = () => {
+  const { isLogged } = useContext(AuthContext)
+
+  return (
+    <div className="app-container">
+      <Routes>
+        {/* Department Routes */}
+        <Route
+          path="/departmentPanel"
+          element={
+            isLogged ? <DepartmentPanel /> : <Navigate replace to="/login" />
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            isLogged ? <Notifications /> : <Navigate replace to="/login" />
+          }
+        />
+        <Route
+          path="/depComplaints"
+          element={
+            isLogged ? <DepComplaints /> : <Navigate replace to="/login" />
+          }
+        />
+
+        {/* Authentication Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Admin Routes */}
+        <Route
+          path="/admin"
+          element={isLogged ? <Admin /> : <Navigate replace to="/login" />}
+        >
+          <Route index path="" element={<Dashboard />} />
+          <Route path="complaints" element={<Complaints />} />
+          <Route path="departments" element={<Departments />} />
+          <Route path="users" element={<Users />} />
+        </Route>
+
+        {/* Main Routes */}
+        <Route path="/" element={<NavBar />}>
+          <Route
+            path="complaint"
+            element={
+              isLogged ? <Complaint /> : <Navigate replace to="/login" />
+            }
+          />
+          <Route
+            path="complaintList"
+            element={
+              isLogged ? <ComplaintList /> : <Navigate replace to="/login" />
+            }
+          />
+          <Route index element={<Home />} />
+        </Route>
+
+        {/* Not Found Route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
+  )
+}
 export default App

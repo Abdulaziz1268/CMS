@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom"
 import { toast, Toaster } from "sonner"
 
 import { authApi } from "./api"
-import AuthContext from "../../Context/AuthContext"
+import { AuthContext } from "../../Context/AuthContext"
 
 function Login() {
-  const { handleIsLoged } = useContext(AuthContext)
+  const { setIsLogged } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ function Login() {
       localStorage.setItem("fname", fname)
       localStorage.setItem("role", role)
 
-      handleIsLoged()
+      setIsLogged(true)
 
       if (role === "admin") {
         navigate("/admin")

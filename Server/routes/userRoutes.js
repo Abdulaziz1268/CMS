@@ -6,11 +6,17 @@ import {
   createComplaint,
 } from "../controllers/userController.js"
 import upload from "../config/storage.js"
+import { authenticate } from "../middleware/authMiddleware.js"
 
 const router = Router()
 
-router.get("/complaintList", getComplaintList)
-router.get("/departmentList", getDepartmentList)
-router.post("/createComplaint", upload.single("file"), createComplaint)
+router.get("/complaintList", authenticate, getComplaintList)
+router.get("/departmentList", authenticate, getDepartmentList)
+router.post(
+  "/createComplaint",
+  authenticate,
+  upload.single("file"),
+  createComplaint
+)
 
 export default router

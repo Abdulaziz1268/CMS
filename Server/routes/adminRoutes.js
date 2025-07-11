@@ -11,17 +11,38 @@ import {
   updateUser,
   updateDepartment,
 } from "../controllers/adminControllers.js"
+import { authenticate, authorize } from "../middleware/authMiddleware.js"
 
 const router = Router()
 
-router.get("/complaintList", getComplaintList)
-router.get("/userList", getUserList)
-router.get("/departmentList", getDepartmentList)
-router.get("/getDepartment/:headName", getDepartment)
-router.post("/createDepartment", createDepartment)
-router.delete("/deleteDepartment/:id", deleteDepartment)
-router.delete("/deleteUser/:id", deleteUser)
-router.patch("/updateUser/:id", updateUser)
-router.patch("/updateDepartment/:id", updateDepartment)
+router.get("/complaintList", authenticate, getComplaintList)
+router.get("/userList", authenticate, authorize("admin"), getUserList)
+router.get("/departmentList", authenticate, getDepartmentList)
+router.get(
+  "/getDepartment/:headName",
+  authenticate,
+  authorize("admin"),
+  getDepartment
+)
+router.post(
+  "/createDepartment",
+  authenticate,
+  authorize("admin"),
+  createDepartment
+)
+router.delete(
+  "/deleteDepartment/:id",
+  authenticate,
+  authorize("admin"),
+  deleteDepartment
+)
+router.delete("/deleteUser/:id", authenticate, authorize("admin"), deleteUser)
+router.patch("/updateUser/:id", authenticate, authorize("admin"), updateUser)
+router.patch(
+  "/updateDepartment/:id",
+  authenticate,
+  authorize("admin"),
+  updateDepartment
+)
 
 export default router

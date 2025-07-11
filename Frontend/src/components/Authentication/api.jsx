@@ -1,28 +1,32 @@
 import axios from "axios"
 
-const localURL = "http://localhost:2005"
-const cloudURL = "https://cms-hwdq.onrender.com"
+const cloud = false
+const url = cloud ? "https://cms-hwdq.onrender.com" : "http://localhost:2005"
 
 export const userApi = axios.create({
-  baseURL: `${localURL}/api/user/`,
+  baseURL: `${url}/api/user/`,
 })
 
 export const adminApi = axios.create({
-  baseURL: `${localURL}/api/admin/`,
+  baseURL: `${url}/api/admin/`,
 })
 
 export const headApi = axios.create({
-  baseURL: `${localURL}/api/head/`,
+  baseURL: `${url}/api/head/`,
 })
 
 export const authApi = axios.create({
-  baseURL: `${localURL}/api/auth/`,
+  baseURL: `${url}/api/auth/`,
 })
 
-// api.interceptors.request.use((req) => {
-//   const token = localStorage.getItem("token")
-//   if (token) {
-//     req.headers.Authorization = `Bearer ${token}`
-//   }
-//   return req
-// })
+const authInterceptor = (req) => {
+  const token = localStorage.getItem("token")
+  if (token) {
+    req.headers.Authorization = `Bearer ${token}`
+  }
+  return req
+}
+
+adminApi.interceptors.request.use(authInterceptor)
+headApi.interceptors.request.use(authInterceptor)
+userApi.interceptors.request.use(authInterceptor)

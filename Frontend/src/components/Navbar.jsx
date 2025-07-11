@@ -1,22 +1,14 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 
-import AuthContext from "../Context/AuthContext"
+import { AuthContext } from "../Context/AuthContext"
 
 const NavBar = () => {
-  const { isLoged } = useContext(AuthContext)
+  const { isLogged, logout } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
 
   const handleClick = () => {
-    navigate("/login")
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("email")
-    localStorage.removeItem("fname")
-    localStorage.removeItem("role")
     navigate("login")
   }
 
@@ -48,10 +40,10 @@ const NavBar = () => {
               </li>
             </>
           )}
-          {isLoged && showWelcome ? <li>Welcome {fname}</li> : <li></li>}
+          {isLogged && showWelcome ? <li>Welcome {fname}</li> : <li></li>}
         </ul>
-        {isLoged ? (
-          <button className="nav-btn" onClick={handleLogout}>
+        {isLogged ? (
+          <button className="nav-btn" onClick={() => logout()}>
             Logout
           </button>
         ) : (
