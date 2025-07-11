@@ -17,7 +17,7 @@ app.use(json())
 app.use(
   cors({
     origin: ["https://commansys.netlify.app", "http://localhost:3000"], // Replace this with your frontend's URL
-    methods: ["GET", "POST", "PATCH", "DELETE"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true, // If you're using cookies or authentication
   })
 )

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
 import { Toaster, toast } from "sonner"
 
-import { adminApi, headApi, userApi } from "../Authentication/api"
+import { userApi } from "../Authentication/api"
 
 function Complaint() {
   const [depList, setDepList] = useState([])
-  const [loggedUser, setLoggedUser] = useState("")
   const [formData, setFormData] = useState({
     department: "",
     severity: "",
@@ -15,14 +14,9 @@ function Complaint() {
   })
 
   useEffect(() => {
-    const checkUser = async () => {
-      const role = localStorage.getItem("role")
-      setLoggedUser(role)
-      const api =
-        role === "admin" ? adminApi : role === "head" ? headApi : userApi
-
+    const fetchDepartment = async () => {
       try {
-        const response = await api.get("/departmentList")
+        const response = await userApi.get("/departmentList")
         setDepList(response.data)
       } catch (error) {
         console.log(error)
@@ -32,7 +26,7 @@ function Complaint() {
       }
     }
 
-    checkUser()
+    fetchDepartment()
   }, [])
 
   function handleChange(event) {
@@ -63,13 +57,7 @@ function Complaint() {
     data.append("reporter", formData.reporter)
     data.append("file", formData.file)
 
-    const api =
-      loggedUser === "admin"
-        ? adminApi
-        : loggedUser === "head"
-        ? headApi
-        : userApi
-    api
+    userApi
       .post("/createComplaint", data, {
         headers: {
           "Content-Type": "multipart/form-data",

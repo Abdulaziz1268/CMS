@@ -4,8 +4,8 @@ import { toast, Toaster } from "sonner"
 import { headApi } from "../Authentication/api"
 import arrowDark from "../../images/arow-dark.png"
 import arrowUpDark from "../../images/arrow-up-dark.png"
-import arrowWhite from "../../images/arow-white.png"
-import arroUpWhite from "../../images/arrow-up-white.png"
+// import arrowWhite from "../../images/arow-white.png"
+// import arroUpWhite from "../../images/arrow-up-white.png"
 
 const Notifications = (props) => {
   const [messages, setMessages] = useState([])
@@ -42,7 +42,7 @@ const Notifications = (props) => {
 
   const handlePost = async (id) => {
     try {
-      const response = await headApi.put(`/solution/${id}`, textArea)
+      await headApi.put(`/solution/${id}`, textArea)
       toast.success("Posted successfully")
       props.handleRefresher()
       setTextArea({ solution: "" })
@@ -55,23 +55,25 @@ const Notifications = (props) => {
   return (
     <div className="notifications-container">
       <Toaster richColors expand={false} position="bottom-center" />
-      {messages.length > 0 ? (
-        messages.map((item) => {
-          if (
-            props.department.length > 0 &&
-            item.status === "unread" &&
-            item.department === props.department[0].name
-          ) {
-            return (
+      {props.department.length > 0 ? (
+        (() => {
+          const filteredMessages = messages.filter(
+            (item) =>
+              item.status === "unread" &&
+              item.department === props.department[0].name
+          )
+
+          return filteredMessages.length > 0 ? (
+            filteredMessages.map((item) => (
               <div className="item-outer-container" key={item._id}>
-                <div className="notification-item" key={item._id}>
+                <div className="notification-item">
                   <p>
                     <strong>Description: </strong>
                     {item.description}
                   </p>
                   <p>
                     <strong>Created at: </strong>
-                    {item.createdAt}
+                    {new Date(item.createdAt).toLocaleString()}
                   </p>
 
                   {clickedId === item._id && (
@@ -84,10 +86,10 @@ const Notifications = (props) => {
                         <strong>Reporter: </strong>
                         {item.reporter}
                       </p>
-                      {console.log(item.filePath)}
                       {/* {item.filePath && (
                             <p><strong>Attachment:</strong> <a href={`http://localhost:2005${item.filePath}`} download target="_blank" rel="noopener noreferrer">View Attachment</a></p>
                         )} */}
+
                       <div className="buttons">
                         {/* {popUp !== item._id && <button className="chat-btn" onClick={(e) => { e.stopPropagation(); }}>Chat</button>} */}
                         {popUp !== item._id && (
@@ -99,6 +101,7 @@ const Notifications = (props) => {
                           </button>
                         )}
                       </div>
+
                       {popUp === item._id && (
                         <div className="solution">
                           <label htmlFor="txt">Solution:</label>
@@ -118,24 +121,25 @@ const Notifications = (props) => {
                       )}
                     </>
                   )}
+
                   <img
                     src={clickedId === item._id ? arrowUpDark : arrowDark}
                     onClick={() => {
                       handleClick(item._id)
-                      {
-                        clickedId === item._id && handleSolved(item._id)
-                      }
+                      if (clickedId === item._id) handleSolved(item._id)
                     }}
                     className="arrow"
                     alt="down arrow"
                   />
                 </div>
               </div>
-            )
-          }
-        })
+            ))
+          ) : (
+            <p style={{ margin: 10 }}>No unread notifications</p>
+          )
+        })()
       ) : (
-        <p>No unread notifications</p>
+        <p style={{ margin: 10 }}>Loading department info...</p>
       )}
     </div>
   )

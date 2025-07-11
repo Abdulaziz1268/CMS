@@ -21,8 +21,6 @@ const DepartmentPanel = () => {
       .get(`/getDepartment/${localStorage.getItem("fname")}`)
       .then((response) => {
         setDepartment(response.data)
-        console.log(response.data)
-        console.log(department)
       })
       .catch((error) => {
         console.log(error)
