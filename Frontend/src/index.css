@@ -11,9 +11,9 @@
 
 .light-theme {
   --primary-color: rgb(185, 175, 175);
-  --secondary-color: #4D8FD1;
+  --secondary-color: #4d8fd1;
   --tertiary-color: #121212;
-  --forth-color: #357ABD;
+  --forth-color: #357abd;
 }
 
 body {
@@ -417,7 +417,6 @@ input::file-selector-button {
 .table-row-data {
   text-indent: 15%;
   overflow: hidden;
- 
 }
 
 .td-last {
@@ -523,7 +522,8 @@ input::file-selector-button {
   gap: 15px;
 }
 
-.dep-one, .dep-two {
+.dep-one,
+.dep-two {
   flex: 1;
 }
 
@@ -754,7 +754,6 @@ input::file-selector-button {
 
 .bottons {
   display: flex;
-
 }
 
 .chat-btn {
@@ -788,4 +787,363 @@ input::file-selector-button {
 
 .not-found-container {
   margin: 30% 0 0 20%;
+}
+
+/* responsive styles */
+/* ===== MEDIA QUERIES FOR RESPONSIVENESS ===== */
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+  .dashboard-container {
+    padding: 90px 0 0 180px;
+  }
+
+  .users-container,
+  .complaint-list-container-admin,
+  .departments-container {
+    padding-left: 200px;
+  }
+
+  .top-container {
+    height: 25%;
+  }
+
+  .bottom-container {
+    height: 75%;
+    padding-top: 80px;
+  }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+  .sidebar-container {
+    width: 160px;
+  }
+
+  .sidebar-img {
+    width: 40px;
+    margin: 25px 15px;
+  }
+
+  .admin-nav-container {
+    padding-left: 160px;
+  }
+
+  .dashboard-container {
+    padding: 90px 0 0 160px;
+  }
+
+  .users-container,
+  .complaint-list-container-admin,
+  .departments-container {
+    padding-left: 180px;
+  }
+
+  .cms-header {
+    font-size: 50px;
+  }
+
+  .btn-container {
+    width: 400px;
+  }
+
+  .complaint-list-item {
+    width: 90%;
+  }
+
+  .top-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .metrics {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .table-head-data,
+  .table-row-data {
+    text-indent: 10%;
+    min-width: 120px;
+  }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+  .nav-list {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+  }
+
+  .nav-list ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-link {
+    margin: 5px 0;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .sidebar-container {
+    width: 60px;
+    padding: 60px 0 30px 0;
+  }
+
+  .sidebar-link span {
+    display: none;
+  }
+
+  .sidebar-img {
+    margin: 20px 5px;
+  }
+
+  .admin-nav-container {
+    padding-left: 60px;
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0 10px 60px;
+  }
+
+  .admin-inner-nav-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .location {
+    margin: 10px 0;
+  }
+
+  .admin-nav-elements {
+    margin: 5px 0;
+  }
+
+  .dashboard-container {
+    padding: 120px 10px 10px 70px;
+  }
+
+  .users-container,
+  .complaint-list-container-admin,
+  .departments-container {
+    padding: 120px 10px 10px 70px;
+  }
+
+  .cms-header {
+    font-size: 40px;
+  }
+
+  .btn-container {
+    width: 300px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .comp-btn {
+    width: 100%;
+  }
+
+  .login-container,
+  .register-container,
+  .forget-password-container,
+  .complaint-container {
+    width: 90%;
+    margin: 20px;
+  }
+
+  .home-container {
+    padding-top: 30px;
+  }
+
+  .chat-block-container,
+  .chat-form {
+    width: 90%;
+  }
+
+  .message-input {
+    width: calc(100% - 60px);
+  }
+
+  .table-head-data,
+  .table-row-data {
+    text-indent: 5%;
+    min-width: 100px;
+    font-size: 14px;
+  }
+
+  .td-last {
+    padding-right: 20px;
+  }
+
+  .department-form {
+    width: 90%;
+  }
+
+  .add-btn-div {
+    flex-direction: column;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bottons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .chat-btn {
+    padding: 0px 50px;
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .logo {
+    font-size: 40px;
+  }
+
+  .sidebar-container {
+    width: 50px;
+  }
+
+  .admin-nav-container {
+    padding-left: 50px;
+  }
+
+  .dashboard-container {
+    padding-left: 60px;
+  }
+
+  .users-container,
+  .complaint-list-container-admin,
+  .departments-container {
+    padding-left: 60px;
+  }
+
+  .cms-header {
+    font-size: 30px;
+  }
+
+  .btn-container {
+    width: 250px;
+  }
+
+  .complaint-list-item {
+    width: 95%;
+    padding-left: 10px;
+  }
+
+  .apps-container {
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .table-head-data,
+  .table-row-data {
+    text-indent: 2%;
+    min-width: 80px;
+    font-size: 12px;
+  }
+
+  .hidden-btn {
+    right: 20px;
+    width: 50px;
+  }
+
+  .update-div {
+    right: 20px;
+    width: 50px;
+  }
+
+  .row-btn {
+    width: 20px;
+  }
+
+  .chat-container {
+    padding: 20px;
+  }
+
+  .notification-item {
+    width: 95%;
+    padding-left: 10px;
+  }
+
+  .arrow {
+    margin-left: 45%;
+  }
+
+  .not-found-container {
+    margin: 50% 0 0 10%;
+  }
+}
+
+/* Mobile landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .home-container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .apps-container {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+
+  .complaint-list-container-admin {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .sidebar-container {
+    overflow-y: auto;
+  }
+}
+
+/* High-resolution displays */
+@media (min-resolution: 192dpi) {
+  .theme-image,
+  .sidebar-img,
+  .google-icon {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  .light-theme {
+    --primary-color: #121212;
+    --tertiary-color: #ffffff;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sidebar-container,
+  .admin-nav-container,
+  .nav-list {
+    display: none;
+  }
+
+  .dashboard-container,
+  .users-container,
+  .complaint-list-container-admin,
+  .departments-container {
+    padding: 0;
+    width: 100%;
+  }
+
+  body {
+    background-color: white;
+    color: black;
+  }
 }
