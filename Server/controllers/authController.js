@@ -24,7 +24,7 @@ export const login = async (req, res) => {
 
     // generate jwt
     const token = jwt.sign({ id: user._id, role: user.role }, jwtSecret, {
-      expiresIn: "1h",
+      expiresIn: "7d",
     })
     res.json({ token, email, fname: user.fname, role: user.role })
   } catch (error) {
