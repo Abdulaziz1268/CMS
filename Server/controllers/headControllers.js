@@ -46,31 +46,6 @@ export const solution = async (req, res) => {
   }
 }
 
-// export const getUnreadedComplaintList = async (req, res) => {
-//   try {
-//     const complaints = await Complaint.find({ status: "unread" })
-
-//     const complaintsWithFilePath = complaints.map((complaint) => {
-//       if (complaint.fileUrl && typeof complaint.fileUrl === "string") {
-//         // Construct the file path based on each complaint's fileUrl
-//         const filePath = path.join(__dirname, complaint.fileUrl)
-
-//         // Check if the file exists in the filesystem
-//         if (fs.existsSync(filePath)) {
-//           const complaintObj = complaint.toObject()
-//           return { ...complaintObj, filePath }
-//         }
-//       }
-//       return { ...complaint._doc }
-//     })
-
-//     res.status(200).json(complaintsWithFilePath)
-//   } catch (error) {
-//     console.error("Error retrieving complaints:", error)
-//     res.status(500).json({ message: "Internal server errorrr", error })
-//   }
-// }
-
 export const getUnreadedComplaintList = async (req, res) => {
   try {
     const complaints = await Complaint.find({ status: "unread" })
