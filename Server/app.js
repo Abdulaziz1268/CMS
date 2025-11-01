@@ -19,7 +19,7 @@ app.use(
     origin: [
       "https://commansys.netlify.app",
       "http://localhost:3000",
-      "https://cms-git-main-abdulaziz1268s-projects.vercel.app",
+      "https://cms-76a9mcyrg-abdulaziz1268s-projects.vercel.app/",
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
