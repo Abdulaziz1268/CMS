@@ -16,9 +16,13 @@ connectDB()
 app.use(json())
 app.use(
   cors({
-    origin: ["https://commansys.netlify.app", "http://localhost:3000"], // Replace this with your frontend's URL
+    origin: [
+      "https://commansys.netlify.app",
+      "http://localhost:3000",
+      "https://cms-git-main-abdulaziz1268s-projects.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true, // If you're using cookies or authentication
+    credentials: true,
   })
 )
 app.use("/uploads", express.static("uploads"))
