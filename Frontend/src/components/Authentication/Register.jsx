@@ -46,24 +46,45 @@ function Register() {
     e.preventDefault()
     setError({})
 
+    // try {
+    //   await schema.validate(userData, { abortEarly: false })
+    //   console.log(userData)
+    //   authApi
+    //     .post("/register", userData)
+    //     .then((response) => console.log(response))
+    //     .catch((error) => console.log(error.message))
+
+    //   console.log("success")
+
+    //   navigate("/login")
+    // } catch (err) {
+    //   const newErrors = {}
+    //   err.inner.forEach((error) => {
+    //     newErrors[error.path] = error.message
+    //   })
+    //   setError(newErrors)
+    //   toast.error(newErrors)
+    //   // toast.error(err)
+    // }
     try {
       await schema.validate(userData, { abortEarly: false })
-
-      authApi
-        .post("/register", userData)
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error.message))
-
-      console.log("success")
-
+      const response = await authApi.post("/register", userData)
+      toast.success("Registration successful!")
       navigate("/login")
     } catch (err) {
-      const newErrors = {}
-      err.inner.forEach((error) => {
-        newErrors[error.path] = error.message
-      })
-      setError(newErrors)
-      toast.error(newErrors.confirmPassword)
+      if (err.name === "ValidationError") {
+        const newErrors = {}
+        err.inner.forEach((error) => {
+          newErrors[error.path] = error.message
+          toast.error(error.message)
+        })
+        setError(newErrors)
+      } else if (err.response) {
+        // Server error
+        toast.error(err.response.data?.message || "Registration failed")
+      } else {
+        toast.error("Something went wrong. Please try again.")
+      }
     }
   }
 
