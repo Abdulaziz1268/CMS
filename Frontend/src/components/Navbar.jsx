@@ -16,6 +16,8 @@ const NavBar = () => {
   const showWelcome = location.pathname === "/"
   const fname = localStorage.getItem("fname")
 
+  console.log(location.pathname)
+
   const handleSelect = (e) => {
     navigate(e.target.value)
   }
@@ -45,13 +47,13 @@ const NavBar = () => {
               </li>
             </ul>
             <select
-              defaultValue="/"
+              value={location.pathname}
               onChange={handleSelect}
               className="navDropDown"
             >
               <option value="/">Home</option>
               <option value="/complaint">Complaint</option>
-              <option value="/ComplaintList">Complaint List</option>
+              <option value="/complaintList">Complaint List</option>
             </select>
           </>
         )}
