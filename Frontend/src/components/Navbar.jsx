@@ -16,13 +16,18 @@ const NavBar = () => {
   const showWelcome = location.pathname === "/"
   const fname = localStorage.getItem("fname")
 
+  const handleSelect = (e) => {
+    navigate(e.target.value)
+  }
+
   return (
     <div className="nav">
       <nav className="nav-list">
         <h1 className="logo">CMS</h1>
-        <ul>
-          {showLink && (
-            <>
+
+        {showLink && (
+          <>
+            <ul>
               <li>
                 <Link className="nav-link" to={"/"}>
                   Home
@@ -38,10 +43,21 @@ const NavBar = () => {
                   Complaint List
                 </Link>
               </li>
-            </>
-          )}
-          {isLogged && showWelcome ? <li>Welcome {fname}</li> : <li></li>}
-        </ul>
+            </ul>
+            <select
+              defaultValue="/"
+              onChange={handleSelect}
+              className="navDropDown"
+            >
+              <option value="/">Home</option>
+              <option value="/complaint">Complaint</option>
+              <option value="/ComplaintList">Complaint List</option>
+            </select>
+          </>
+        )}
+        {isLogged && showWelcome && (
+          <h2 className="nav-welcome">Welcome {fname}</h2>
+        )}
         {isLogged ? (
           <button className="nav-btn" onClick={() => logout()}>
             Logout

@@ -1,14 +1,12 @@
 * {
   box-sizing: border-box;
 }
-
 :root {
   --primary-color: white;
   --secondary-color: #005ccc;
   --tertiary-color: black;
   --forth-color: #589df1;
 }
-
 .light-theme {
   --primary-color: rgb(185, 175, 175);
   --secondary-color: #4d8fd1;
@@ -21,7 +19,7 @@ body {
   height: 100vh;
   background-color: var(--primary-color);
 }
-
+comp-btn
 /* ------- NavBar ------- */
 
 nav {
@@ -31,7 +29,7 @@ nav {
 .logo {
   color: var(--secondary-color);
   font-size: 60px;
-  margin: -8px 0 0 0;
+  margin: 0;
   vertical-align: top;
 }
 
@@ -39,12 +37,13 @@ nav {
   width: 100%;
   height: 8vh;
   display: flex;
-  justify-content: space-around;
-  /* border-bottom: 3px solid black; */
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .nav-btn {
   border: none;
+  margin: 0;
   padding: 5px 15px;
   height: 50px;
   background-color: var(--secondary-color);
@@ -52,9 +51,12 @@ nav {
   border-radius: 10px;
 }
 
+.nav-welcome {
+  margin: 0;
+}
+
 .nav-btn:hover {
   cursor: pointer;
-  /* transform: scale(1.05); */
   background-color: var(--forth-color);
 }
 
@@ -131,6 +133,7 @@ nav-link {
   color: var(--primary-color);
   padding: 20px;
   border-radius: 10px;
+  border: 2px solid var(--primary-color);
 }
 
 .comp-btn:hover {
@@ -682,7 +685,12 @@ input::file-selector-button {
 .header {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding: 20px 20px;
+}
+
+.dep-complaint-header {
+  margin: 0;
 }
 
 /* --- department complaints --- */
@@ -868,18 +876,56 @@ input::file-selector-button {
   }
 }
 
+.navDropDown {
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  display: none;
+  width: 150px;
+  height: 50px;
+  margin: 0;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'10'%20height%3D'6'%20viewBox%3D'0%200%2010%206'%20fill%3D'none'%20xmlns%3D'http://www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M0%200L5%206L10%200H0Z'%20fill%3D'%23333'/%3E%3C/svg%3E"); /* down arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.custom-select:hover {
+  border-color: #888;
+}
+
+.custom-select:focus {
+  border-color: #555;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
   .nav-list {
-    flex-direction: column;
+    flex-direction: row;
     height: auto;
     align-items: center;
   }
 
   .nav-list ul {
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
+  }
+  .navDropDown {
+    display: inline;
   }
 
   .nav-link {
@@ -987,7 +1033,7 @@ input::file-selector-button {
   }
 
   .header {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     gap: 10px;
   }
@@ -1001,87 +1047,6 @@ input::file-selector-button {
     padding: 0px 50px;
     width: 100%;
     margin-right: 0;
-  }
-}
-
-/* Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {
-  .logo {
-    font-size: 40px;
-  }
-
-  .sidebar-container {
-    width: 50px;
-  }
-
-  .admin-nav-container {
-    padding-left: 50px;
-  }
-
-  .dashboard-container {
-    padding-left: 60px;
-  }
-
-  .users-container,
-  .complaint-list-container-admin,
-  .departments-container {
-    padding-left: 60px;
-  }
-
-  .cms-header {
-    font-size: 30px;
-  }
-
-  .btn-container {
-    width: 250px;
-  }
-
-  .complaint-list-item {
-    width: 95%;
-    padding-left: 10px;
-  }
-
-  .apps-container {
-    height: auto;
-    padding: 20px 0;
-  }
-
-  .table-head-data,
-  .table-row-data {
-    text-indent: 2%;
-    min-width: 80px;
-    font-size: 12px;
-  }
-
-  .hidden-btn {
-    right: 20px;
-    width: 50px;
-  }
-
-  .update-div {
-    right: 20px;
-    width: 50px;
-  }
-
-  .row-btn {
-    width: 20px;
-  }
-
-  .chat-container {
-    padding: 20px;
-  }
-
-  .notification-item {
-    width: 95%;
-    padding-left: 10px;
-  }
-
-  .arrow {
-    margin-left: 45%;
-  }
-
-  .not-found-container {
-    margin: 50% 0 0 10%;
   }
 }
 

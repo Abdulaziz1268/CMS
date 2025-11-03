@@ -46,7 +46,7 @@ const DepartmentPanel = () => {
             src={!darkTheme ? homeDark : homeWhite}
             alt=""
           />
-          <h2>New Complaints</h2>
+          <h2 className="dep-complaint-header">New Complaints</h2>
           <img
             className="theme-image admin-nav-elements"
             onClick={toggleTheme}
