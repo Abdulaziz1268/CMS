@@ -20,6 +20,7 @@ app.use(
       "https://commansys.netlify.app",
       "http://localhost:3000",
       "https://cms-76a9mcyrg-abdulaziz1268s-projects.vercel.app/",
+      "exp://10.20.100.88:8081",
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
