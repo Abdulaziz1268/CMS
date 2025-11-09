@@ -19,6 +19,7 @@ app.use(
     origin: [
       "https://commansys.netlify.app",
       "http://localhost:3000",
+      "http://localhost:5174",
       "https://cms-76a9mcyrg-abdulaziz1268s-projects.vercel.app/",
       "exp://10.20.100.88:8081",
     ],

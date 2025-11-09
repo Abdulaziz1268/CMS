@@ -13,6 +13,7 @@ const Home = () => {
         Welcome to <br />
         Complaint Management System
       </h1>
+      <h2 className="bg-amber-900">tailwindcss is working</h2>
       <div className="btn-container">
         <button className="comp-btn" onClick={() => navigate("/complaint")}>
           Report a complaint

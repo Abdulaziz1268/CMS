@@ -25,6 +25,9 @@ function App() {
   return (
     <AuthProvider>
       <RoutesComponent />
+      <div>
+        <h1>vite</h1>
+      </div>
     </AuthProvider>
   )
 }
