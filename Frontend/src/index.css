@@ -21,29 +21,29 @@ body {
   height: 100vh;
   background-color: var(--primary-color);
 }
-comp-btn
+
 /* ------- NavBar ------- */
 
-nav {
+/* nav {
   padding-top: 20px;
-}
+} */
 
-.logo {
+/* .logo {
   color: var(--secondary-color);
   font-size: 60px;
   margin: 0;
   vertical-align: top;
-}
+} */
 
-.nav-list {
+/* .nav-list {
   width: 100%;
   height: 8vh;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-}
+} */
 
-.nav-btn {
+/* .nav-btn {
   border: none;
   margin: 0;
   padding: 5px 15px;
@@ -51,32 +51,32 @@ nav {
   background-color: var(--secondary-color);
   color: var(--primary-color);
   border-radius: 10px;
-}
+} */
 
-.nav-welcome {
+/* .nav-welcome {
   margin: 0;
-}
+} */
 
-.nav-btn:hover {
+/* .nav-btn:hover {
   cursor: pointer;
   background-color: var(--forth-color);
-}
+} */
 
-.nav-list ul {
+/* .nav-list ul {
   display: flex;
   padding: 0;
   list-style-type: none;
-}
+} */
 
-.nav-link {
+/* .nav-link {
   color: var(--tertiary-color);
   text-decoration: none;
   margin-left: 20px;
   height: 50px;
   padding: 24px;
-}
+} */
 
-.nav-link:hover,
+/* .nav-link:hover,
 nav-link {
   cursor: pointer;
   background: linear-gradient(
@@ -91,61 +91,57 @@ nav-link {
     10%,
     var(--secondary-color)
   );
-}
-
+} */
 /* ------ Home ------ */
 
-.cms-header {
-  color: var(--secondary-color);
+/* .cms-header {
   font-weight: 900;
   font-size: 60px;
   text-align: center;
-}
+} */
 
-.home-container {
+/* .home-container {
   width: 100%;
   height: 86.5vh;
   display: flex;
   flex-direction: column;
   padding-top: 50px;
   position: relative;
-  /* background-image: url("../public/home-bg.png"); */
-  /* background-color: aqua; */
-}
+} */
 
-.bg {
+/* .bg {
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: -1;
-}
+} */
 
-.btn-container {
+/* .btn-container {
   align-self: center;
   width: 500px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-top: 50px;
-}
+} */
 
-.comp-btn {
-  border: none;
+/* .comp-btn {
   background-color: var(--secondary-color);
   color: var(--primary-color);
   padding: 20px;
   border-radius: 10px;
   border: 2px solid var(--primary-color);
-}
+} */
 
-.comp-btn:hover {
+/* .comp-btn:hover {
   cursor: pointer;
   background-color: var(--forth-color);
-}
-
+} */
+complaint-container
+elements
 /* ----- Login, Register, Forget Password ----- */
 
-.apps-container {
+/* .apps-container {
   width: 100%;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   height: 89.8vh;
@@ -153,14 +149,14 @@ nav-link {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-h2 {
+/* h2 {
   text-align: center;
   margin-bottom: 40px;
-}
+} */
 
-.login-container,
+/* .login-container,
 .register-container,
 .forget-password-container,
 .complaint-container {
@@ -171,12 +167,12 @@ h2 {
   box-shadow: 0px 0px 5px 5px lightgray;
   border: none;
   background-color: var(--primary-color);
-}
+} */
 
-.google-icon {
+/* .google-icon {
   width: 16px;
   margin-right: 5px;
-}
+} */
 
 form {
   display: flex;
@@ -239,9 +235,9 @@ h4 span {
   align-items: center;
 }
 
-.create-account {
+/* .create-account {
   margin-top: 20px;
-}
+} */
 
 .forget-password {
   text-decoration: none;
@@ -263,22 +259,22 @@ input::file-selector-button {
 .txt-area {
   min-height: 100px;
 }
-
+btn
 /* ----- complaint-list ----- */
-.complaint-list-container {
+/* .complaint-list-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.complaint-list-item {
+/* .complaint-list-item {
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: 5px 5px 10px 5px var(--forth-color);
   width: 80%;
   padding-left: 20px;
-}
+} */
 
 /* ---- side bar ---- */
 .sidebar-container {
@@ -378,7 +374,7 @@ input::file-selector-button {
   background-color: var(--primary-color);
 }
 
-/* ---- Users ---- */
+/* ---- Admin/Users ---- */
 .users-container {
   width: 100%;
   height: 100vh;
@@ -433,7 +429,7 @@ input::file-selector-button {
   border-radius: 10px 10px 10px 0;
 }
 
-/* ---- complaint list container ---- */
+/* ---- Admin/complaint list container ---- */
 .complaint-list-container-admin {
   width: 100%;
   height: 90vh;
@@ -472,7 +468,7 @@ input::file-selector-button {
   border-radius: 10px;
 }
 
-/* ---- departments ---- */
+/* ---- Admin/departments ---- */
 .departments-container {
   width: 100%;
   height: 100vh;
@@ -667,106 +663,103 @@ input::file-selector-button {
 }
 
 /* --- department pannel --- */
-.department-pannel-container {
+/* .department-pannel-container {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
-}
+} */
 
-.new-complaints {
+/* .new-complaints {
   flex: 1;
   background-color: var(--primary-color);
-}
+} */
 
-.old-complaints {
-  flex: 2;
-  background-color: var(--primary-color);
-}
+/*  */
 
-.header {
+/* .header {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 20px 20px;
-}
+} */
 
-.dep-complaint-header {
+/* .dep-complaint-header {
   margin: 0;
-}
+} */
 
 /* --- department complaints --- */
-.department-complaints-container {
+/* .department-complaints-container {
   padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-.item-container {
+/* .item-container {
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: 5px 5px 10px 5px var(--forth-color);
   width: 80%;
   padding-left: 20px;
   padding: 10px;
-}
+} */
 
-.item-container:hover {
+/* .item-container:hover {
   transform: scale(1.02);
   cursor: pointer;
-}
+} */
 
 /* --- Notifications --- */
-.notifications-container {
+/* .notifications-container {
   padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-.item-outer-container {
+/* .item-outer-container {
   width: 100%;
   display: flex;
   justify-content: center;
-}
+} */
 
-.notification-item {
+/* .notification-item {
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: 5px 5px 10px 5px var(--forth-color);
   width: 80%;
   padding-left: 20px;
   padding: 10px;
-}
+} */
 
-.notification-item:hover {
+/* .notification-item:hover {
   transform: scale(1.02);
-}
+} */
 
-.arrow {
+/* .arrow {
   width: 30px;
   height: 30px;
   z-index: 2;
   margin-left: 47%;
   cursor: pointer;
   margin: 2px 47%;
-}
+} */
 
-.arrow:hover {
+/* .arrow:hover {
   transform: scale(1.3);
-}
+} */
 
 .upload-file {
   width: 100px;
   height: 200px;
 }
 
-.bottons {
+/* .bottons {
   display: flex;
-}
+} */
 
-.chat-btn {
+/* .chat-btn {
   border: none;
   padding: 0px 105px;
   height: 50px;
@@ -774,30 +767,30 @@ input::file-selector-button {
   color: var(--primary-color);
   border-radius: 25px;
   margin-right: 20px;
-}
+} */
 
-.chat-btn:hover {
+/* .chat-btn:hover {
   background-color: var(--forth-color);
   cursor: pointer;
-}
+} */
 
-.solution {
+/* .solution {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-}
+} */
 
-#txt {
+/* #txt {
   width: 70%;
-}
+} */
 
-.sol {
+/* .sol {
   max-width: 500px;
-}
+} */
 
-.not-found-container {
+/* .not-found-container {
   margin: 30% 0 0 20%;
-}
+} */
 
 /* responsive styles */
 /* ===== MEDIA QUERIES FOR RESPONSIVENESS ===== */

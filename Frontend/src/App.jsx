@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { useContext } from "react"
+import { Toaster } from "sonner"
 
 import "./App.css"
 import Admin from "./components/AdminPanel/Admin"
@@ -25,9 +26,7 @@ function App() {
   return (
     <AuthProvider>
       <RoutesComponent />
-      <div>
-        <h1>vite</h1>
-      </div>
+      <Toaster richColors expand={false} position="bottom-center" />
     </AuthProvider>
   )
 }
