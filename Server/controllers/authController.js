@@ -33,28 +33,16 @@ export const login = async (req, res) => {
   }
 }
 
-// export const register = async (req, res) => {
-//   try {
-//     const newUser = new User(req.body)
-//     const savedUser = await newUser.save()
-//     res.status(201).json(savedUser)
-//   } catch (error) {
-//     if (error.code === 11000) {
-//       // Duplicate key error
-//       res.status(400).json({ error: "Email already exists" })
-//     } else {
-//       res.status(400).json(error)
-//     }
-//   }
-// }
 export const register = async (req, res) => {
   try {
     const user = new User(req.body)
     const savedUser = await user.save()
+    const userWithoutPass = savedUser.toObject()
+    delete userWithoutPass.password
 
     return res.status(201).json({
       message: "Registration successful",
-      user: savedUser,
+      user: userWithoutPass,
     })
   } catch (error) {
     // Duplicate email (MongoDB code 11000)
