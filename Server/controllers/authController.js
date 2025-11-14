@@ -33,17 +33,50 @@ export const login = async (req, res) => {
   }
 }
 
+// export const register = async (req, res) => {
+//   try {
+//     const newUser = new User(req.body)
+//     const savedUser = await newUser.save()
+//     res.status(201).json(savedUser)
+//   } catch (error) {
+//     if (error.code === 11000) {
+//       // Duplicate key error
+//       res.status(400).json({ error: "Email already exists" })
+//     } else {
+//       res.status(400).json(error)
+//     }
+//   }
+// }
 export const register = async (req, res) => {
   try {
-    const newUser = new User(req.body)
-    const savedUser = await newUser.save()
-    res.status(201).json(savedUser)
+    const user = new User(req.body)
+    const savedUser = await user.save()
+
+    return res.status(201).json({
+      message: "Registration successful",
+      user: savedUser,
+    })
   } catch (error) {
+    // Duplicate email (MongoDB code 11000)
     if (error.code === 11000) {
-      // Duplicate key error
-      res.status(400).json({ error: "Email already exists" })
-    } else {
-      res.status(400).json(error)
+      return res.status(400).json({
+        message: "Email already exists",
+      })
     }
+
+    // Validation errors (Mongoose)
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map((err) => err.message)
+      return res.status(400).json({
+        message: "Validation failed",
+        errors,
+      })
+    }
+
+    // Other unknown errors
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    })
   }
 }
