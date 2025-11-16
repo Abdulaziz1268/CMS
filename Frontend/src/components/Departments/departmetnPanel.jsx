@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 import Notifications from "./Notifications"
 import DepComplaints from "./depComplaints"
@@ -61,7 +62,8 @@ const DepartmentPanel = () => {
           </div>
 
           <button
-            onClick={toggleTheme}
+            // onClick={toggleTheme}
+            onClick={() => toast.info("Comming soon!")}
             className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg active:scale-95"
           >
             <img
