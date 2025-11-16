@@ -109,18 +109,20 @@ const NavBar = () => {
                     🏠 Home
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    className={`text-gray-900 text-lg font-semibold no-underline px-4 py-3 rounded-lg transition-all duration-200 hover:text-blue-700 hover:bg-blue-50 ${
-                      location.pathname === "/complaint"
-                        ? "text-blue-700 bg-blue-100"
-                        : ""
-                    }`}
-                    to={"/complaint"}
-                  >
-                    📝 Complain
-                  </Link>
-                </li>
+                {localStorage.getItem("role") !== "admin" && (
+                  <li>
+                    <Link
+                      className={`text-gray-900 text-lg font-semibold no-underline px-4 py-3 rounded-lg transition-all duration-200 hover:text-blue-700 hover:bg-blue-50 ${
+                        location.pathname === "/complaint"
+                          ? "text-blue-700 bg-blue-100"
+                          : ""
+                      }`}
+                      to={"/complaint"}
+                    >
+                      📝 Complain
+                    </Link>
+                  </li>
+                )}
                 <li>
                   <Link
                     className={`text-gray-900 text-lg font-semibold no-underline px-4 py-3 rounded-lg transition-all duration-200 hover:text-blue-700 hover:bg-blue-50 ${
@@ -142,7 +144,9 @@ const NavBar = () => {
                 className="md:hidden w-full max-w-[200px] px-2 py-2 text-base border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="/">🏠 Home</option>
-                <option value="/complaint">📝 Complain</option>
+                {localStorage.getItem("role") !== "admin" && (
+                  <option value="/complaint">📝 Complain</option>
+                )}
                 <option value="/ComplaintList">📋 Complaint List</option>
               </select>
             </>

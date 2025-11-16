@@ -24,12 +24,14 @@ const Home = () => {
         </span>
       </h1>
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8 items-center justify-center w-full max-w-6xl">
-        <button
-          className="w-full sm:w-auto min-w-[200px] hover:cursor-pointer hover:bg-blue-600 active:scale-95 hover:scale-105 duration-300 ease-in-out bg-blue-700 text-white py-3 px-6 sm:py-4 sm:px-8 lg:py-5 lg:px-10 rounded-2xl border-2 border-white shadow-lg hover:shadow-xl font-semibold text-base sm:text-lg lg:text-xl transition-all"
-          onClick={() => navigate("/complaint")}
-        >
-          📝 Report a complaint
-        </button>
+        {localStorage.getItem("role") !== "admin" && (
+          <button
+            className="w-full sm:w-auto min-w-[200px] hover:cursor-pointer hover:bg-blue-600 active:scale-95 hover:scale-105 duration-300 ease-in-out bg-blue-700 text-white py-3 px-6 sm:py-4 sm:px-8 lg:py-5 lg:px-10 rounded-2xl border-2 border-white shadow-lg hover:shadow-xl font-semibold text-base sm:text-lg lg:text-xl transition-all"
+            onClick={() => navigate("/complaint")}
+          >
+            📝 Report a complaint
+          </button>
+        )}
 
         <button
           className="w-full sm:w-auto min-w-[200px] hover:cursor-pointer hover:bg-blue-600 active:scale-95 hover:scale-105 duration-300 ease-in-out bg-blue-700 text-white py-3 px-6 sm:py-4 sm:px-8 lg:py-5 lg:px-10 rounded-2xl border-2 border-white shadow-lg hover:shadow-xl font-semibold text-base sm:text-lg lg:text-xl transition-all"
