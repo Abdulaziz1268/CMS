@@ -53,7 +53,7 @@ const Notifications = (props) => {
   }
 
   return (
-    <div className="pt-5 flex flex-col items-center px-4 sm:px-6 lg:px-8">
+    <div className="pt-5 flex flex-col items-center sm:px-6 lg:px-8">
       <Toaster richColors expand={false} position="bottom-center" />
 
       {props.department.length > 0 ? (

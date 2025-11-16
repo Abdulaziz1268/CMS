@@ -23,7 +23,7 @@ const DepComplaints = (props) => {
   }
 
   return (
-    <div className="pt-5 flex flex-col items-center px-4 sm:px-6 lg:px-8">
+    <div className="pt-5 flex flex-col items-center sm:px-6 lg:px-8">
       {loading && (
         <div className="w-full max-w-4xl flex flex-col items-center justify-center py-12 space-y-4">
           <div className="relative">
@@ -75,7 +75,7 @@ const DepComplaints = (props) => {
                       </p>
                     </div>
 
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center justify-center space-x-2">
                       {/* <span
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
                           item.status === "resolved"
@@ -87,7 +87,7 @@ const DepComplaints = (props) => {
                           ? "✅ Resolved"
                           : "🟡 In Progress"}
                       </span> */}
-                      <div className="text-gray-400 group-hover:text-blue-500 transition-colors">
+                      <div className=" text-gray-400 group-hover:text-blue-500 transition-colors">
                         <svg
                           className={`w-5 h-5 transform transition-transform duration-300 ${
                             clickedId === item._id ? "rotate-180" : ""
