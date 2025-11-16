@@ -1,10 +1,19 @@
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 import bg from "../images/home-bg.png"
 import bgDark from "../images/home-bg.png"
 
 const Home = () => {
   const navigate = useNavigate()
+
+  const handleAdminClick = () => {
+    if (window.innerWidth >= 1024) {
+      navigate("/dashbord")
+    } else {
+      toast.info("Dashboard is only available on desktop!")
+    }
+  }
 
   return (
     <div className=" w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative overflow-hidden">
@@ -43,7 +52,7 @@ const Home = () => {
         {localStorage.getItem("role") === "admin" && (
           <button
             className="w-full sm:w-auto min-w-[200px] hover:cursor-pointer hover:bg-green-600 active:scale-95 hover:scale-105 duration-300 ease-in-out bg-green-700 text-white py-3 px-6 sm:py-4 sm:px-8 lg:py-5 lg:px-10 rounded-2xl border-2 border-white shadow-lg hover:shadow-xl font-semibold text-base sm:text-lg lg:text-xl transition-all"
-            onClick={() => navigate("/admin")}
+            onClick={handleAdminClick}
           >
             ⚙️ Admin Panel
           </button>
